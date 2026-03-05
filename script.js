@@ -21,7 +21,7 @@ const gameController = (() => {
   const player1 = makePlayer("player1", "X");
   const player2 = makePlayer("player2", "O");
   const initiate = () => {
-    for(i = 0; i < 9; i++){
+    for(let i = 0; i < 9; i++){
       if(breaker)break;
       gameBoard.claimPiece(player1);
       if(breaker)break;
