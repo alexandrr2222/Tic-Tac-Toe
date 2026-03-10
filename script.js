@@ -50,7 +50,9 @@ const gameController = (() => {
     for(let i = 0; i < 9; i++){
         gameBoard.claimPiece(player1);
         if(gameBoard.winCondition(player1.mark)){
-            console.log("playa1 won")
+            console.log("player1 won");
+            player1.score += 1;
+            console.log(`Player 1 current score is: ${player1.score} \n Player 2 current score is: ${player2.score}`);
             gameBoard.resetBoard();
             break;
         }
@@ -61,7 +63,9 @@ const gameController = (() => {
         }
         gameBoard.claimPiece(player2);
         if(gameBoard.winCondition(player2.mark)){
-            console.log("playa2 won")
+            console.log("player2 won");
+            player2.score += 1;
+            console.log(`Player 1 current score is: ${player1.score} \n Player 2 current score is: ${player2.score}`);
             gameBoard.resetBoard();
             break;
         }
@@ -82,4 +86,7 @@ function makePlayer(name, mark){
         score: 0
     }
 }
-gameController.initiate();
+
+const DOMLogic = {
+
+}

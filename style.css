@@ -22,10 +22,217 @@ img {
   max-inline-size: 100%;
 }
 /* AFTER RESET */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
 :root{
-    background-color: rgb(47, 42, 42);
+    /* COLORS */
+    --backgroundSolid: #0E1016;
+    --backgroundGradient: linear-gradient(to bottom, #204E4433, #00000033);
+    --h1color: linear-gradient(to bottom, #A9B3B8, #4B5052);
+    --highlightGrey: #A9B3B8;
+    --regularGrey: #555E62;
+    --XColor: #00EEC5;
+    --OColor: #E6D172;
+    /* FONTS */
+    font-family: "Hedvig Letters Serif";
+    color: var(--regularGrey);
+    letter-spacing: 0.2rem;
+    --regularSize: 1.33rem;
+    --subRegularSize: 1rem;
+    --mainHeaderSize: 1.7rem;
+    --startButtonSize: 1.7rem;
+    --iconSelectSize: 2.5rem;
+    /* OPACITY */
+    --unselectedOpacity: 0.15;
+}
+html, body{
+    height: 100%;
+    
+}
+body{
+    font-size: var(--regularSize);
+    background: var(--backgroundGradient);
+    background-color: var(--backgroundSolid);
+    display: flex;
+    flex-direction: column;
 }
 h1{
-    color: rgb(215, 205, 184);
-    font-size: 5rem;
+    display: flex;
+    justify-content: center;
+    padding: 4rem 1rem;
+    letter-spacing: 0.5rem;
+    font-size: var(--mainHeaderSize);
+    text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
+    background: var(--highlightGrey);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+h2{
+    margin-bottom: 0.25rem;
+    letter-spacing: 0.4rem;
+}
+.shadow{
+    visibility: hidden;
+    
+    
+}
+main{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.playerSquare{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    border: 4px solid;
+    /* border-image: var(--h1color) 1; */
+    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
+    padding: 1rem 4rem;
+}
+.playerSquare h2{
+
+}
+.subCont{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5rem;
+}
+.NameDiffCont{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+#name1{
+    background-color: var(--backgroundSolid);
+    border: var(--regularGrey) 0.1rem solid;
+    padding: 0.33rem 1rem;
+    width: 10rem;
+    text-align: center;
+    color: var(--highlightGrey);
+}
+#name1::placeholder{
+    font-size: var(--subRegularSize);
+    letter-spacing: 0;
+}
+.TypeCont{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.subTypeCont{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 4rem;
+}
+input[type="radio"] {
+    display: none;
+}
+.typeIcons{
+    width: var(--iconSelectSize);
+    color: var(--highlightGrey);
+    opacity: var(--unselectedOpacity);
+}
+.subRegularText{
+    font-size: var(--subRegularSize);
+    letter-spacing: 0;
+}
+#human1:checked + label .humanIcon{
+    opacity: 1;
+}
+#robot1:checked + label .robotIcon{
+    opacity: 1;
+}
+#human1:checked + label .shadow{
+    visibility: visible;
+}
+#robot1:checked + label .shadow{
+    visibility: visible;
+}
+.MarkCont{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.XButton{
+    color: var(--XColor);
+    opacity: var(--unselectedOpacity);
+    display: flex;
+    flex-direction: column;
+    line-height: 1;
+    align-items: center;
+    font-size: var(--iconSelectSize);
+    width: 4rem;
+}
+.XButton div, .OButton div {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+.XButton svg, .OButton svg {
+    width: 100%;
+}
+#x1:checked + .XButton{
+    opacity: 1;
+}
+#x1:checked + .XButton .shadow{
+    visibility: visible;
+}
+.OButton{
+    color: var(--OColor);
+    opacity: var(--unselectedOpacity);
+    display: flex;
+    flex-direction: column;
+    line-height: 1;
+    align-items: center;
+    font-size: var(--iconSelectSize);
+    width: 4rem;
+}
+#o1:checked + .OButton{
+    opacity: 1;
+}
+#o1:checked + .OButton .shadow{
+    visibility: visible;
+}
+
+.vsCont{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+.vsText{
+    font-size: var(--startButtonSize);
+}
+.vsLine1{
+    transform: rotate(180deg);
+}
+.vsLine{
+
+}
+.startButton{
+    background-color: #0E1016;
+    color: var(--highlightGrey);
+    border: var(--highlightGrey) solid 1px;
+    letter-spacing: 0.3rem;
+    padding: 0.5rem 3rem;
+    font-size: var(--startButtonSize);
+    margin-bottom: 2rem;
 }
