@@ -43,13 +43,13 @@ img {
     --XColor: #00EEC5;
     --OColor: #E6D172;
     /* FONTS */
-    /* font-family: "Hedvig Letters Serif";
+    font-family: "Hedvig Letters Serif";
     color: var(--regularGrey);
-    letter-spacing: 0.2rem; */
-    --regularSize: 1.33rem;
+    letter-spacing: 0.2rem;
+    --regularSize: 1rem;
     --subRegularSize: 0.75rem;
     --midRegularSize: 1rem;
-    --mainHeaderSize: clamp(1.4rem, 3vw, 3rem);
+    --mainHeaderSize: clamp(1.4rem, 3.7vw, 4.8rem);
     --startButtonSize: 1.7rem;
     --iconSelectSize: 2.5rem;
     --vsSize: 3rem;
@@ -58,6 +58,10 @@ img {
 }
 html, body{
     height: 100%;
+    font-size: var(--regularSize);
+    background: var(--backgroundGradient);
+    background-color: var(--backgroundSolid);
+    background-attachment: fixed;
 }
 .mainContentGame{
     display: flex;
@@ -65,24 +69,35 @@ html, body{
     align-items: center;
 }
 h1{
-    padding: 2rem 1rem;
+        padding: 2rem 1rem;
+    letter-spacing: 0.5rem;
     font-size: var(--mainHeaderSize);
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.5);
+    color: var(--regularGrey);
+    background: var(--h1color);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    cursor: default;
+    opacity: 0.8;
+    transition: ease 0.6s;
 }
 main{
     display: flex;
     flex-direction: column;
     width: 80%;
     gap: 1rem;
+    position: relative;
 }
 .statCont{
     display: flex;
     justify-content: space-evenly;
     align-items: center;
-    border: black solid 1px;
     padding: 1rem 2rem;
     gap: 0.7rem;
     position: relative;
     min-width: 150px;
+    box-shadow: 0 0 0 1px rgba(169,179,184,0.08), 0 8px 32px rgba(0,0,0,0.4), 0 2px 8px rgba(0,0,0,0.3);
+    background-color: var(--backgroundGradient);
 }
     .player1{
         display: flex;
@@ -123,9 +138,11 @@ main{
                 .currentTurnX{
 
                 }
-                .XShadow{
-
-                }
+.shadow{
+    opacity: 1;
+    width: 2rem;
+    display: block;
+}
             .CTOCont{
 
             }
@@ -171,14 +188,20 @@ main{
     .board{
         width: 100%;
         display: grid;
+        background-color: var(--backgroundSolid);
         grid-template-columns: 1fr 1fr 1fr;
         grid-auto-rows: 1fr 1fr 1fr;
         
     }
         .piece{
             width: 100%;
+            border: dotted 1px black;
             aspect-ratio: 1;
-            border: 1px solid black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 4rem;
+            
         }
 
     .currentTurnPlayerName{
@@ -188,14 +211,83 @@ main{
     min-width: 150px;
     padding: 1rem 2rem;
     gap: 1rem;
-    border: black 1px solid;
     display: flex;
     justify-content: center;
     position: relative;
     margin-bottom: 1rem;
+    box-shadow: 0 0 0 1px rgba(169,179,184,0.08), 0 8px 32px rgba(0,0,0,0.4), 0 2px 8px rgba(0,0,0,0.3);
+    background-color: var(--backgroundGradient);
+}
+.controlCont button{
+    background-color: var(--backgroundGradient);
+    color: var(--regularGrey);
+    letter-spacing: 0.3rem;
+    padding: 0.5rem 1rem;
+    transition: 0.6s ease;
+    border: none;
+    box-shadow: 0 0 0 1px rgba(169,179,184,0.08), 0 8px 32px rgba(0,0,0,0.4), 0 2px 8px rgba(0,0,0,0.3);
+    cursor: pointer;
+    position: relative;
+}
+.separator{
+    transform: rotate(90deg);
 }
 .corner{
     position: absolute;
+    content: " ";
+    transition: 0.6s ease;
+    width: 20px;
+    height: 20px;
+    border-color: var(--regularGrey);
+    border-style: solid;
+
+}
+.corner1, .corner2, .corner3{
+    position: absolute;
+    content: " ";
+    transition: 0.6s ease;
+    width: 20px;
+    height: 20px;
+    border-color: var(--regularGrey);
+    border-style: solid;
+
+}
+.tlCorner{
+    border-width: 2px 0px 0px 2px;
+    top: -2px;
+    left: -2px;
+}
+.trCorner{
+    border-width: 2px 2px 0px 0px;
+    top: -2px;
+    right: -2px;
+}
+.blCorner{
+    border-width: 0px 0px 2px 2px;
+    bottom: -2px;
+    left: -2px;
+}
+.brCorner{
+    border-width: 0px 2px 2px 0px;
+    bottom: -2px;
+    right: -2px;
+}
+.statCont:hover .corner{
+    width: 40px;
+    height: 40px;
+    border-color: var(--highlightGrey);
+}
+.controlCont:hover .corner{
+    width: 40px;
+    height: 40px;
+    border-color: var(--highlightGrey);
+}
+.newGame:hover .corner1, .rematch:hover .corner2, .quit:hover .corner3{
+    width: 85px;
+    border-color: var(--highlightGrey);
+}
+.newGame:hover, .rematch:hover, .quit:hover{
+    color: var(--highlightGrey);
 }
 @media (min-width: 768px){
     main{
@@ -218,8 +310,15 @@ main{
     .controlCont{
         margin-bottom: 0;
     }
+    .separator{
+        transform: rotate(0deg);
+    }
 }
 @media (min-width: 1024px){
+    h1{
+        margin-top: 0.5rem;
+        letter-spacing: 1.3rem;
+    }
     main{
         width: 80%;
     }

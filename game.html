@@ -27,21 +27,54 @@
                     <div class="winNumber1">0</div>
                     <div class="winText1">WINS</div>
                 </div>
-                <div class="separator">|</div>
+                <svg class="separator" viewBox="0 0 134 3" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+                    <path d="M1.5 1.5H132.5" stroke="url(#paint0_radial_98_3)" stroke-width="3" stroke-linecap="round"/>
+                    <defs>
+                        <radialGradient id="paint0_radial_98_3" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(67 2) scale(65.5 0.5)">
+                            <stop stop-color="#555E62"/>
+                            <stop offset="1" stop-color="#ADC0C8" stop-opacity="0"/>
+                        </radialGradient>
+                    </defs>
+                </svg>
                 <div class="currentTurn">
                     <div class="currentTurnText">CURRENT TURN</div>
                     <div class="currentTurnMarkCont">
                         <div class="CTXCont">
                             <div class="currentTurnX">X</div>
-                            <div class="XShadow">_</div>
+                            <svg class="shadow2 xShad shadow" height="5" xmlns="http://www.w3.org/2000/svg">
+                                <rect width="100%" height="5" fill="url(#XShadow)"/>
+                                <defs>
+                                    <radialGradient id="XShadow" cx="0.5" cy="0.5" r="0.5" gradientUnits="objectBoundingBox">
+                                        <stop stop-color="#00EEC5"/>
+                                        <stop offset="1" stop-color="#00EEC5" stop-opacity="0"/>
+                                    </radialGradient>
+                                </defs>
+                            </svg>
                         </div>
                         <div class="CTOCont">
                             <div class="currentTurnO">O</div>
-                            <div class="OShadow">_</div>
+                            <svg class="shadow2 shadow" height="5" xmlns="http://www.w3.org/2000/svg">
+                                <rect width="100%" height="5" fill="url(#OShadow)"/>
+                                <defs>
+                                    <radialGradient id="OShadow" cx="0.5" cy="0.5" r="0.5" gradientUnits="objectBoundingBox">
+                                        <stop stop-color="#E6D172"/>
+                                        <stop offset="1" stop-color="#E6D172" stop-opacity="0"/>
+                                    </radialGradient>
+                                </defs>
+                            </svg>
                         </div>
                     </div>
                 </div>
-                <div class="separator">|</div>
+                <svg class="separator" viewBox="0 0 134 3" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+                    <path d="M1.5 1.5H132.5" stroke="url(#paint0_radial_98_2)" stroke-width="3" stroke-linecap="round"/>
+                    <defs>
+                        <radialGradient id="paint0_radial_98_2" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(67 2) scale(65.5 0.5)">
+                            <stop stop-color="#555E62"/>
+                            <stop offset="1" stop-color="#ADC0C8" stop-opacity="0"/>
+                        </radialGradient>
+                    </defs>
+                </svg>
+                </svg>
                 <div class="player2">
                     <div class="playerName2">phN</div>
                     <div class="mark2">phM</div>
@@ -51,10 +84,10 @@
             </div>
             <div class="mainBoard">
                 <div class="boardWrapper">
-                    <!-- <span class="tlCorner corner"></span>
+                    <span class="tlCorner corner"></span>
                     <span class="trCorner corner"></span>
                     <span class="blCorner corner"></span>
-                    <span class="brCorner corner"></span> -->
+                    <span class="brCorner corner"></span>
                     <div class="board">
                         <div class="piece1 piece"></div>
                         <div class="piece2 piece"></div>
@@ -76,9 +109,27 @@
                 <span class="trCorner corner"></span>
                 <span class="blCorner corner"></span>
                 <span class="brCorner corner"></span>
-                <button class="newGame">NEW GAME</button>
-                <button class="rematch">REMATCH</button>
-                <button class="quit">QUIT</button>
+                <button class="newGame">
+                    <span class="tlCorner corner1"></span>
+                    <span class="trCorner corner1"></span>
+                    <span class="blCorner corner1"></span>
+                    <span class="brCorner corner1"></span>
+                    NEW GAME
+                </button>
+                <button class="rematch">
+                    <span class="tlCorner corner2"></span>
+                    <span class="trCorner corner2"></span>
+                    <span class="blCorner corner2"></span>
+                    <span class="brCorner corner2"></span>
+                    REMATCH
+                </button>
+                <button class="quit">
+                    <span class="tlCorner corner3"></span>
+                    <span class="trCorner corner3"></span>
+                    <span class="blCorner corner3"></span>
+                    <span class="brCorner corner3"></span>
+                    QUIT
+                </button>
             </div>
         </main>
     </div>
