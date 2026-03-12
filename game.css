@@ -1,0 +1,236 @@
+@import "modern-normalize.css";
+:root {
+  line-height: 1.5;
+}
+
+h1, h2, h3, h4, h5, figure, p, ol, ul {
+  margin: 0;
+}
+
+ol[role="list"], ul[role="list"] {
+  list-style: none;
+  padding-inline: 0;
+}
+
+h1, h2, h3, h4, h5 {
+  font-size: inherit;
+  font-weight: inherit;
+}
+
+img {
+  display: block;
+  max-inline-size: 100%;
+}
+/* AFTER RESET */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+:root{
+    /* COLORS */
+    --backgroundSolid: #0E1016;
+    --backgroundGradient: linear-gradient(to bottom, #204E4433, #00000033);
+    --h1color: linear-gradient(to bottom, #A9B3B8, #555E62);
+    --highlightGrey: #A9B3B8;
+    --regularGrey: #555E62;
+    --XColor: #00EEC5;
+    --OColor: #E6D172;
+    /* FONTS */
+    /* font-family: "Hedvig Letters Serif";
+    color: var(--regularGrey);
+    letter-spacing: 0.2rem; */
+    --regularSize: 1.33rem;
+    --subRegularSize: 0.75rem;
+    --midRegularSize: 1rem;
+    --mainHeaderSize: clamp(1.4rem, 3vw, 3rem);
+    --startButtonSize: 1.7rem;
+    --iconSelectSize: 2.5rem;
+    --vsSize: 3rem;
+    /* OPACITY */
+    --unselectedOpacity: 0.15;
+}
+html, body{
+    height: 100%;
+}
+.mainContentGame{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+h1{
+    padding: 2rem 1rem;
+    font-size: var(--mainHeaderSize);
+}
+main{
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    gap: 1rem;
+}
+.statCont{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    border: black solid 1px;
+    padding: 1rem 2rem;
+    gap: 0.7rem;
+    position: relative;
+    min-width: 150px;
+}
+    .player1{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+        .playerName1{
+
+        }
+        .mark1{
+
+        }
+        .winNumber1{
+
+        }
+        .winText1{
+
+        }
+    .separator{
+
+    }
+    .currentTurn{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+        .currentTurnText{
+
+        }
+        .currentTurnMarkCont{
+            display: flex;
+            
+        }
+            .CTXCont{
+                
+            }
+                .currentTurnX{
+
+                }
+                .XShadow{
+
+                }
+            .CTOCont{
+
+            }
+                .currentTurnO{
+
+                }
+                .OShadow{
+
+                }
+    .player2{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+        .playerName2{
+
+        }
+        .mark2{
+
+        }
+        .winNumber2{
+
+        }
+        .winText2{
+
+        }
+.mainBoard{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    gap: 1rem;
+    flex: 1;
+    min-width: 0;
+}
+.boardWrapper{
+    width: 100%;
+    max-width: 60vh;
+    display: flex;
+    justify-content: center;
+    position: relative;
+}
+    .board{
+        width: 100%;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-auto-rows: 1fr 1fr 1fr;
+        
+    }
+        .piece{
+            width: 100%;
+            aspect-ratio: 1;
+            border: 1px solid black;
+        }
+
+    .currentTurnPlayerName{
+
+    }
+.controlCont{
+    min-width: 150px;
+    padding: 1rem 2rem;
+    gap: 1rem;
+    border: black 1px solid;
+    display: flex;
+    justify-content: center;
+    position: relative;
+    margin-bottom: 1rem;
+}
+.corner{
+    position: absolute;
+}
+@media (min-width: 768px){
+    main{
+        flex-direction: row;
+        width: 90%;
+    }
+    .mainBoard{
+        justify-content: center;
+    }
+    .statCont{
+        flex-direction: column;
+    }
+    .controlCont{
+        flex-direction: column;
+    }
+    .currentTurnPlayerName{
+        position: absolute;
+        bottom: -4rem;
+    }
+    .controlCont{
+        margin-bottom: 0;
+    }
+}
+@media (min-width: 1024px){
+    main{
+        width: 80%;
+    }
+}
+@media (min-width: 1440px){
+    main{
+        width: 60%;
+    }
+}
+@media (min-width: 2560px){
+    main{
+        width: 45%;
+    }
+}

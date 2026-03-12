@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tic-Tac-Toe | Game</title>
+    <link rel="stylesheet" href="./game.css">
+    <script src="./script.js" defer></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Hedvig+Letters+Serif:opsz@12..24&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="mainContentGame">
+        <header>
+            <h1>TIC - TAC - TOE</h1>
+        </header>
+        <main>
+            <div class="statCont">
+                <span class="tlCorner corner"></span>
+                <span class="trCorner corner"></span>
+                <span class="blCorner corner"></span>
+                <span class="brCorner corner"></span>
+                <div class="player1">
+                    <div class="playerName1">phN</div>
+                    <div class="mark1">phM</div>
+                    <div class="winNumber1">0</div>
+                    <div class="winText1">WINS</div>
+                </div>
+                <div class="separator">|</div>
+                <div class="currentTurn">
+                    <div class="currentTurnText">CURRENT TURN</div>
+                    <div class="currentTurnMarkCont">
+                        <div class="CTXCont">
+                            <div class="currentTurnX">X</div>
+                            <div class="XShadow">_</div>
+                        </div>
+                        <div class="CTOCont">
+                            <div class="currentTurnO">O</div>
+                            <div class="OShadow">_</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="separator">|</div>
+                <div class="player2">
+                    <div class="playerName2">phN</div>
+                    <div class="mark2">phM</div>
+                    <div class="winNumber2">0</div>
+                    <div class="winText2">WINS</div>
+                </div>
+            </div>
+            <div class="mainBoard">
+                <div class="boardWrapper">
+                    <!-- <span class="tlCorner corner"></span>
+                    <span class="trCorner corner"></span>
+                    <span class="blCorner corner"></span>
+                    <span class="brCorner corner"></span> -->
+                    <div class="board">
+                        <div class="piece1 piece"></div>
+                        <div class="piece2 piece"></div>
+                        <div class="piece3 piece"></div>
+                        <div class="piece4 piece"></div>
+                        <div class="piece5 piece"></div>
+                        <div class="piece6 piece"></div>
+                        <div class="piece7 piece"></div>
+                        <div class="piece8 piece"></div>
+                        <div class="piece9 piece"></div>
+                    </div>
+                </div>
+                <div class="currentTurnPlayerName">
+                    <span class="currentTurnPlayerNameInsert">placeholder</span>'S TURN
+                </div>
+            </div>
+            <div class="controlCont">
+                <span class="tlCorner corner"></span>
+                <span class="trCorner corner"></span>
+                <span class="blCorner corner"></span>
+                <span class="brCorner corner"></span>
+                <button class="newGame">NEW GAME</button>
+                <button class="rematch">REMATCH</button>
+                <button class="quit">QUIT</button>
+            </div>
+        </main>
+    </div>
+</body>
+</html>
