@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tic-Tac-Toe | Game</title>
     <link rel="stylesheet" href="./game.css">
-    <script src="./script.js" defer></script>
+    <script src="./game.js" defer></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Hedvig+Letters+Serif:opsz@12..24&display=swap" rel="stylesheet">
@@ -23,11 +23,20 @@
                 <span class="brCorner corner"></span>
                 <div class="player1">
                     <div class="playerName1">phN</div>
-                    <div class="mark1">phM</div>
+                    <div class="mark1">X</div>
                     <div class="winNumber1">0</div>
                     <div class="winText1">WINS</div>
                 </div>
-                <svg class="separator" viewBox="0 0 134 3" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+                <svg class="horizontalSeparator" width="3" height="68" viewBox="0 0 3 68" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M1.5 1.5V66.5" stroke="url(#paint0_radial_98_245)" stroke-width="3" stroke-linecap="round"/>
+                    <defs>
+                        <radialGradient id="paint0_radial_98_245" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(1 34) rotate(90) scale(32.5 0.5)">
+                            <stop stop-color="#555E62"/>
+                            <stop offset="1" stop-color="#ADC0C8" stop-opacity="0"/>
+                        </radialGradient>
+                    </defs>
+                </svg>
+                <svg class="verticalSeparator" viewBox="0 0 134 3" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
                     <path d="M1.5 1.5H132.5" stroke="url(#paint0_radial_98_3)" stroke-width="3" stroke-linecap="round"/>
                     <defs>
                         <radialGradient id="paint0_radial_98_3" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(67 2) scale(65.5 0.5)">
@@ -37,11 +46,11 @@
                     </defs>
                 </svg>
                 <div class="currentTurn">
-                    <div class="currentTurnText">CURRENT TURN</div>
+                    <div class="currentTurnText">CURRENT <br>TURN</div>
                     <div class="currentTurnMarkCont">
                         <div class="CTXCont">
                             <div class="currentTurnX">X</div>
-                            <svg class="shadow2 xShad shadow" height="5" xmlns="http://www.w3.org/2000/svg">
+                            <svg class="xShadow shadow" height="5" xmlns="http://www.w3.org/2000/svg">
                                 <rect width="100%" height="5" fill="url(#XShadow)"/>
                                 <defs>
                                     <radialGradient id="XShadow" cx="0.5" cy="0.5" r="0.5" gradientUnits="objectBoundingBox">
@@ -53,7 +62,7 @@
                         </div>
                         <div class="CTOCont">
                             <div class="currentTurnO">O</div>
-                            <svg class="shadow2 shadow" height="5" xmlns="http://www.w3.org/2000/svg">
+                            <svg class="oShadow shadow" height="5" xmlns="http://www.w3.org/2000/svg">
                                 <rect width="100%" height="5" fill="url(#OShadow)"/>
                                 <defs>
                                     <radialGradient id="OShadow" cx="0.5" cy="0.5" r="0.5" gradientUnits="objectBoundingBox">
@@ -65,7 +74,17 @@
                         </div>
                     </div>
                 </div>
-                <svg class="separator" viewBox="0 0 134 3" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+                <svg class="horizontalSeparator" width="3" height="68" viewBox="0 0 3 68" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M1.5 1.5V66.5" stroke="url(#paint0_radial_98_24)" stroke-width="3" stroke-linecap="round"/>
+                    <defs>
+                        <radialGradient id="paint0_radial_98_24" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(1 34) rotate(90) scale(32.5 0.5)">
+                            <stop stop-color="#555E62"/>
+                            <stop offset="1" stop-color="#ADC0C8" stop-opacity="0"/>
+                        </radialGradient>
+                    </defs>
+                </svg>
+
+                <svg class="verticalSeparator" viewBox="0 0 134 3" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
                     <path d="M1.5 1.5H132.5" stroke="url(#paint0_radial_98_2)" stroke-width="3" stroke-linecap="round"/>
                     <defs>
                         <radialGradient id="paint0_radial_98_2" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(67 2) scale(65.5 0.5)">
@@ -77,32 +96,30 @@
                 </svg>
                 <div class="player2">
                     <div class="playerName2">phN</div>
-                    <div class="mark2">phM</div>
+                    <div class="mark2">O</div>
                     <div class="winNumber2">0</div>
                     <div class="winText2">WINS</div>
                 </div>
             </div>
             <div class="mainBoard">
                 <div class="boardWrapper">
-                    <span class="tlCorner corner"></span>
+                    <!-- <span class="tlCorner corner"></span>
                     <span class="trCorner corner"></span>
                     <span class="blCorner corner"></span>
-                    <span class="brCorner corner"></span>
+                    <span class="brCorner corner"></span> -->
                     <div class="board">
-                        <div class="piece1 piece"></div>
-                        <div class="piece2 piece"></div>
-                        <div class="piece3 piece"></div>
-                        <div class="piece4 piece"></div>
-                        <div class="piece5 piece"></div>
-                        <div class="piece6 piece"></div>
-                        <div class="piece7 piece"></div>
-                        <div class="piece8 piece"></div>
-                        <div class="piece9 piece"></div>
+                        <div class="piece" id="1"></div>
+                        <div class="piece" id="2"></div>
+                        <div class="piece" id="3"></div>
+                        <div class="piece" id="4"></div>
+                        <div class="piece" id="5"></div>
+                        <div class="piece" id="6"></div>
+                        <div class="piece" id="7"></div>
+                        <div class="piece" id="8"></div>
+                        <div class="piece" id="9"></div>
                     </div>
                 </div>
-                <div class="currentTurnPlayerName">
-                    <span class="currentTurnPlayerNameInsert">placeholder</span>'S TURN
-                </div>
+                <div class="currentTurnPlayerNameInsert"></div>
             </div>
             <div class="controlCont">
                 <span class="tlCorner corner"></span>

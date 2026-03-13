@@ -26,18 +26,22 @@
                     <div class="subCont">
                         <label class="sr-only" for="name1">ENTER YOUR NAME</label>
                         <input type="text" id="name1" name="player1" placeholder="ENTER YOUR NAME" maxlength="16" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" inputmode="text">
+                        <!-- <select name="difficulty" id="name1">
+                            <option value="easy">EASY</option>
+                            <option value="hard">HARD</option>
+                        </select> -->
                     </div>
                 </div>
                 <div class="TypeCont">
                     <h2>TYPE</h2>
                     <div class="subCont" role="group" aria-labelledby="typeLabel">
                         <span id="typeLabel" class="sr-only">Player type</span>
-                        <input type="radio" id="human1" name="type" value="human" checked>
+                        <input class="HumRobSel1" type="radio" id="human1" name="type" value="human" checked>
                         <label class="subTypeCont subRegularText humanSib" for="human1">
                             <svg class="typeIcons humanIcon" aria-label="Select human player" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="M9,11.75A1.25,1.25 0 0,0 7.75,13A1.25,1.25 0 0,0 9,14.25A1.25,1.25 0 0,0 10.25,13A1.25,1.25 0 0,0 9,11.75M15,11.75A1.25,1.25 0 0,0 13.75,13A1.25,1.25 0 0,0 15,14.25A1.25,1.25 0 0,0 16.25,13A1.25,1.25 0 0,0 15,11.75M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,20C7.59,20 4,16.41 4,12C4,11.71 4,11.42 4.05,11.14C6.41,10.09 8.28,8.16 9.26,5.77C11.07,8.33 14.05,10 17.42,10C18.2,10 18.95,9.91 19.67,9.74C19.88,10.45 20,11.21 20,12C20,16.41 16.41,20 12,20Z" /></svg>
                             <div class="typeMargin humanText">HUMAN</div>
                         </label>
-                        <input type="radio" id="robot1" name="type" value="robot">
+                        <input class="HumRobSel1" type="radio" id="robot1" name="type" value="robot">
                         <label class="subTypeCont subRegularText robotSib" for="robot1">
                             <svg class="typeIcons robotIcon" aria-label="Select robot player" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="M12,2A2,2 0 0,1 14,4C14,4.74 13.6,5.39 13,5.73V7H14A7,7 0 0,1 21,14H22A1,1 0 0,1 23,15V18A1,1 0 0,1 22,19H21V20A2,2 0 0,1 19,22H5A2,2 0 0,1 3,20V19H2A1,1 0 0,1 1,18V15A1,1 0 0,1 2,14H3A7,7 0 0,1 10,7H11V5.73C10.4,5.39 10,4.74 10,4A2,2 0 0,1 12,2M7.5,13A2.5,2.5 0 0,0 5,15.5A2.5,2.5 0 0,0 7.5,18A2.5,2.5 0 0,0 10,15.5A2.5,2.5 0 0,0 7.5,13M16.5,13A2.5,2.5 0 0,0 14,15.5A2.5,2.5 0 0,0 16.5,18A2.5,2.5 0 0,0 19,15.5A2.5,2.5 0 0,0 16.5,13Z" /></svg>
                             <div class="typeMargin robotText">ROBOT</div>
@@ -48,7 +52,7 @@
                     <h2>MARK</h2>
                     <div class="subCont" role="group" aria-labelledby="markLabel">
                         <span id="markLabel" class="sr-only">Player mark</span>
-                        <input class="xoSelector" type="radio" id="x1" name="symbol" value="X" checked>
+                        <input class="xoSelector xoSel1" type="radio" id="x1" name="symbol" value="X" checked>
                         <label for="x1" class="XButton">
                             <div class="centerMarkX">X</div>
                             <svg class="shadow2 xShad shadow" height="5" xmlns="http://www.w3.org/2000/svg">
@@ -61,7 +65,7 @@
                                 </defs>
                             </svg>
                         </label>
-                        <input class="xoSelector" type="radio" id="o1" name="symbol" value="O">
+                        <input class="xoSelector xoSel1" type="radio" id="o1" name="symbol" value="O">
                         <label for="o1" class="OButton">
                             <div class="centerMarkO">O</div>
                             <svg class="shadow2 shadow" height="5" xmlns="http://www.w3.org/2000/svg">
@@ -128,12 +132,12 @@
                     <h2>TYPE</h2>
                     <div class="subCont" role="group" aria-labelledby="typeLabel">
                         <span id="typeLabel2" class="sr-only">Player type</span>
-                        <input type="radio" id="human2" name="type2" value="human" checked>
+                        <input class="HumRobSel2" type="radio" id="human2" name="type2" value="human" checked>
                         <label class="subTypeCont subRegularText humanSib" for="human2">
                             <svg class="typeIcons humanIcon" aria-label="Select human player" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="M9,11.75A1.25,1.25 0 0,0 7.75,13A1.25,1.25 0 0,0 9,14.25A1.25,1.25 0 0,0 10.25,13A1.25,1.25 0 0,0 9,11.75M15,11.75A1.25,1.25 0 0,0 13.75,13A1.25,1.25 0 0,0 15,14.25A1.25,1.25 0 0,0 16.25,13A1.25,1.25 0 0,0 15,11.75M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,20C7.59,20 4,16.41 4,12C4,11.71 4,11.42 4.05,11.14C6.41,10.09 8.28,8.16 9.26,5.77C11.07,8.33 14.05,10 17.42,10C18.2,10 18.95,9.91 19.67,9.74C19.88,10.45 20,11.21 20,12C20,16.41 16.41,20 12,20Z" /></svg>
                             <div class="typeMargin humanText">HUMAN</div>
                         </label>
-                        <input type="radio" id="robot2" name="type2" value="robot">
+                        <input class="HumRobSel2" type="radio" id="robot2" name="type2" value="robot">
                         <label class="subTypeCont subRegularText robotSib" for="robot2">
                             <svg class="typeIcons robotIcon" aria-label="Select robot player" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="M12,2A2,2 0 0,1 14,4C14,4.74 13.6,5.39 13,5.73V7H14A7,7 0 0,1 21,14H22A1,1 0 0,1 23,15V18A1,1 0 0,1 22,19H21V20A2,2 0 0,1 19,22H5A2,2 0 0,1 3,20V19H2A1,1 0 0,1 1,18V15A1,1 0 0,1 2,14H3A7,7 0 0,1 10,7H11V5.73C10.4,5.39 10,4.74 10,4A2,2 0 0,1 12,2M7.5,13A2.5,2.5 0 0,0 5,15.5A2.5,2.5 0 0,0 7.5,18A2.5,2.5 0 0,0 10,15.5A2.5,2.5 0 0,0 7.5,13M16.5,13A2.5,2.5 0 0,0 14,15.5A2.5,2.5 0 0,0 16.5,18A2.5,2.5 0 0,0 19,15.5A2.5,2.5 0 0,0 16.5,13Z" /></svg>
                             <div class="typeMargin robotText">ROBOT</div>
@@ -144,7 +148,7 @@
                     <h2>MARK</h2>
                     <div class="subCont" role="group" aria-labelledby="markLabel">
                         <span id="markLabel2" class="sr-only">Player mark</span>
-                        <input class="xoSelector" type="radio" id="x2" name="symbol2" value="X">
+                        <input class="xoSelector xoSel2" type="radio" id="x2" name="symbol2" value="X">
                         <label for="x2" class="XButton">
                             <div class="centerMarkX">X</div>
                             <svg class="shadow2 xShad shadow" height="5" xmlns="http://www.w3.org/2000/svg">
@@ -157,7 +161,7 @@
                                 </defs>
                             </svg>
                         </label>
-                        <input class="xoSelector" type="radio" id="o2" name="symbol2" value="O" checked>
+                        <input class="xoSelector xoSel2" type="radio" id="o2" name="symbol2" value="O" checked>
                         <label for="o2" class="OButton">
                             <div class="centerMarkO">O</div>
                             <svg class="shadow2 shadow" height="5" xmlns="http://www.w3.org/2000/svg">
@@ -174,7 +178,6 @@
                 </div>
             </div>
         </main>
-        <a href="./game.html">
         <button class="startButton">
                 <span class="tlCorner corner2"></span>
                 <span class="trCorner corner2"></span>
@@ -182,7 +185,6 @@
                 <span class="brCorner corner2"></span>
                 START
         </button>
-        </a>
     </div>
 </body>
 </html>
