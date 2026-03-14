@@ -1,24 +1,20 @@
 const gameBoard = (() => {
     let gameBoardPieces = [" ", " ", " ", " ", " ", " ", " ", " ", " "];
     const claimPiece = (player, id) => {
-        
-        const drawPiece = document.querySelector(`#${id}`);
-        if(player.mark = "X")drawPiece.textContent = "X";
-        else if(player.mark = "O")drawPiece.textContent = "O";
-        gameBoardPieces[id] = player.mark;
-
-        // let tempPrompt = Number(prompt("write number from 0 to 8"));
-        // while(gameBoardPieces[tempPrompt] !== " "){
-        //     console.log("error, that piece is claimed")
-        //     tempPrompt = Number(prompt("write number from 0 to 8"));
-        // }
-        // gameBoardPieces[tempPrompt] = player.mark;
-        displayBoard();
+        const drawPiece = document.querySelector(`#P${id}`);
+        if(player.mark === "X") drawPiece.textContent = "X";
+        else if(player.mark === "O") drawPiece.textContent = "O";
+        gameBoardPieces[id - 1] = player.mark;
     }
-    const displayBoard = () => {
-        // console.log("#################\n", gameBoardPieces.slice(0, 3).toString(), "\n", gameBoardPieces.slice(3, 6).toString(), "\n", gameBoardPieces.slice(6, 9).toString(), "\n #################")
+    const checkClaim = (id) => {
+        if(gameBoardPieces[id - 1] !== " ") return true;
+        else return false
     }
     const resetBoard = () => {
+        const pieces = document.querySelectorAll(".piece")
+        pieces.forEach(pc => {
+            pc.textContent = " "
+        });
         gameBoardPieces.fill(" ");
     }
     const winCondition = (mark) => {
@@ -46,13 +42,15 @@ const gameBoard = (() => {
         }
         return false;
     }
-    return {claimPiece, resetBoard, winCondition, fullBoardCheck};
+    return {claimPiece, resetBoard, winCondition, fullBoardCheck, checkClaim};
 })()
 
 const gameController = (() => {
     let player1 = null;
     let player2 = null;
-    
+    let toggle = false;
+
+
     const setUp = () => {
         const player1Name = localStorage.getItem("player1Name");
         const player2Name = localStorage.getItem("player2Name");
@@ -75,87 +73,101 @@ const gameController = (() => {
     }
 
     const setListeners = () => {
-        let toggle = false;
+        const currentPlayer = document.querySelector(".currentTurnPlayerNameInsert");
+        const winNumber1 = document.querySelector(".winNumber1");
+        const winNumber2 = document.querySelector(".winNumber2");
+        const winText1 = document.querySelector(".winText1");
+        const winText2 = document.querySelector(".winText2");
+        const pieces = document.querySelectorAll(".piece");
+        const newGame = document.querySelector(".newGame");
+        const rematch = document.querySelector(".rematch");
+        const quit = document.querySelector(".quit");
+        newGame.addEventListener("click", () => {
+            if(toggle){
+                statContCurrent();
+            }
+            currentPlayer.style.color = "#555E62"
+            currentPlayer.textContent = `${player1.name}'S TURN`;
+            toggle = false;
+            gameBoard.resetBoard();
+        })
+        rematch.addEventListener("click", () => {
+            if(toggle){
+                statContCurrent();
+            }
+            currentPlayer.style.color = "#555E62"
+            currentPlayer.textContent = `${player1.name}'S TURN`;
+            player1.score = 0;
+            player2.score = 0;
+            winText1.textContent = "WINS"
+            winNumber1.textContent = player1.score;
+            winText2.textContent = "WINS"
+            winNumber2.textContent = player2.score;
+            toggle = false;
+            gameBoard.resetBoard();
+        })
+        quit.addEventListener("click", () => {
+            localStorage.clear()
+            window.location.href = "index.html";
+        })
         pieces.forEach(pc => {
                 pc.addEventListener("click", () => {
-                    id = Number(pc.id);
+                    id = Number(pc.id.match(/\d+/)[0]);
+                    if(gameBoard.checkClaim(id)){
+                        return;
+                    }
                     toggle = !toggle
+                    statContCurrent();
+                    currentPlayer.style.color = "#555E62"
                     if(toggle){
+                        currentPlayer.textContent = `${player2.name}'S TURN`;
                         gameBoard.claimPiece(player1, id)
+                        if(gameBoard.winCondition(player1.mark)){
+                            toggle = !toggle
+                            statContCurrent();
+                            currentPlayer.style.color = "#00EEC5"
+                            currentPlayer.textContent = `${player1.name} CLAIMS VICTORY!`;
+                            player1.score += 1;
+                            if(player1.score === 1) winText1.textContent = "WIN"
+                            else winText1.textContent = "WINS"
+                            winNumber1.textContent = player1.score;
+                            gameBoard.resetBoard();
+                        }
+                        else if(gameBoard.fullBoardCheck()){
+                            toggle = !toggle
+                            statContCurrent();
+                            currentPlayer.textContent = "DRAW";
+                            gameBoard.resetBoard();
+                        }
                     }
                     else if(!toggle){
+                        currentPlayer.textContent = `${player1.name}'S TURN`;
                         gameBoard.claimPiece(player2, id)
+                        if(gameBoard.winCondition(player2.mark)){
+                            currentPlayer.style.color = "#E6D172"
+                            currentPlayer.textContent = `${player2.name} CLAIMS VICTORY!`;
+                            player2.score += 1;
+                            if(player2.score === 1) winText2.textContent = "WIN"
+                            else winText2.textContent = "WINS"
+                            winNumber2.textContent = player2.score;
+                            gameBoard.resetBoard();
+                        }
                     }
                 });
         });
     }
-
-    const initiate = () => {
-    const currentPlayer = document.querySelector(".currentTurnPlayerNameInsert")
-    const winNumber1 = document.querySelector(".winNumber1");
-    const winNumber2 = document.querySelector(".winNumber2");
-    const winText1 = document.querySelector(".winText1");
-    const winText2 = document.querySelector(".winText2");
-    const currentTurnX = document.querySelector(".currentTurnX");
-    const currentTurnO = document.querySelector(".currentTurnO");
-    const xShadow = document.querySelector(".xShadow");
-    const oShadow = document.querySelector(".oShadow");
-    currentPlayer.style.color = "#555E62"
-    const pieces = document.querySelectorAll(".piece");
-    for(let i = 0; i < 9; i++){
-        currentPlayer.textContent = `${player1.name}'S TURN`;
-        currentTurnX.classList.add("opacityUpX");
-        currentTurnO.classList.remove("opacityUpO");
-        xShadow.classList.remove("hider");
-        oShadow.classList.add("hider");
-
-
-        gameBoard.claimPiece(player1);
-        if(gameBoard.winCondition(player1.mark)){
-            // console.log(player1.name, " won");
-            currentPlayer.style.color = "#00EEC5"
-            currentPlayer.textContent = `${player1.name} CLAIMS VICTORY!`;
-            player1.score += 1;
-            if(player1.score === 1) winText1.textContent = "WIN"
-            else winText1.textContent = "WINS"
-            winNumber1.textContent = player1.score;
-            // console.log(`Player 1 current score is: ${player1.score} \n Player 2 current score is: ${player2.score}`);
-            gameBoard.resetBoard();
-            break;
-        }
-        else if(gameBoard.fullBoardCheck()){
-            currentPlayer.textContent = "DRAW";
-            // console.log("tie");
-            gameBoard.resetBoard();
-            break;
-        }
-        currentPlayer.textContent = `${player2.name}'S TURN`;
-        currentTurnX.classList.remove("opacityUpX");
-        currentTurnO.classList.add("opacityUpO");
-        xShadow.classList.add("hider");
-        oShadow.classList.remove("hider");
-        gameBoard.claimPiece(player2);
-        if(gameBoard.winCondition(player2.mark)){
-            // console.log("player2 won");
-            currentPlayer.style.color = "#E6D172"
-            currentPlayer.textContent = `${player1.name} CLAIMS VICTORY!`;
-            player2.score += 1;
-            if(player1.score === 1) winText2.textContent = "WIN"
-            else winText2.textContent = "WINS"
-            winNumber2.textContent = player1.score;
-            // console.log(`Player 1 current score is: ${player1.score} \n Player 2 current score is: ${player2.score}`);
-            gameBoard.resetBoard();
-            break;
-        }
-        // else if(gameBoard.fullBoardCheck()){
-        //     currentPlayer.textContent = "DRAW";
-        //     console.log("tie");
-        //     gameBoard.resetBoard();
-        //     break;
-        // }
+    const statContCurrent = () => {
+        const currentTurnX = document.querySelector(".currentTurnX");
+        const currentTurnO = document.querySelector(".currentTurnO");
+        const xShadow = document.querySelector(".xShadow");
+        const oShadow = document.querySelector(".oShadow");
+        currentTurnX.classList.toggle("opacityUpX");
+        currentTurnO.classList.toggle("opacityUpO");
+        xShadow.classList.toggle("hider");
+        oShadow.classList.toggle("hider");
     }
-  }
-  return {setUp, setListeners, initiate}
+
+  return {setUp, setListeners}
 })()
 
 function makePlayer(name, type, mark){
@@ -167,11 +179,5 @@ function makePlayer(name, type, mark){
     }
 }
 
-const DOMLogic = {
-
-}
-
-function nig(){
-
-}
 gameController.setUp()
+gameController.setListeners()

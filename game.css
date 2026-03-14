@@ -165,7 +165,7 @@ main{
     margin-top: -0.3rem;
     margin-right: 0.21rem;
     width: 1rem;
-    height: 0.12rem;
+    height: 0.15rem;
     display: block;
 }
 .hider{
@@ -422,4 +422,5 @@ main{
         width: 45%;
     }
 }
-/* StatCont too wide if name is too long, distance between shadow and curTurnMArk */
+/* StatCont too wide if name is too long, distance between shadow and curTurnMArk, fix shadow under curTurnMark */
+/* Responsiveness, style board, hover shadows, board animations fadeins for page swaps, duration on buttons  */
