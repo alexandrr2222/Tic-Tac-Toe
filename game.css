@@ -53,7 +53,7 @@ img {
     --nameSize: clamp(0.835rem, 1.3vw, 1.1rem);
     --markSize: clamp(1.2rem, 1.5vw, 1.8rem);
     --mainHeaderSize: clamp(2.2rem, 3.7vw, 4.8rem);
-    --ButtonSize: clamp(1rem, 1.2vw, 1.4rem);
+    --ButtonSize: clamp(1rem, 1vw, 1.4rem);
     /* OPACITY */
     --unselectedOpacity: 0.15;
 }
@@ -67,6 +67,13 @@ html, body{
 body{
     opacity: 0;
     transition: opacity 1s ease;
+}
+.winCanvas{
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 5;
+    pointer-events: none;
 }
 .mainContentGame{
     display: flex;
@@ -113,6 +120,10 @@ justify-content: center;
 }
 .playerName1{
     font-size: var(--nameSize);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100px;
 }
 .mark1{
     color: var(--XColor);
@@ -200,6 +211,10 @@ justify-content: center;
 }
 .playerName2{
     font-size: var(--nameSize);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 50px;
 }
 .mark2{
     color: var(--OColor);
@@ -249,6 +264,7 @@ justify-content: center;
     display: flex;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
     opacity: 0;
     transition: opacity 0.2s ease;
 }
@@ -282,27 +298,36 @@ justify-content: center;
 .blue{
     color: var(--XColor);
     opacity: 0.3;
-    
+    user-select: none;
 }
 .yellow{
     color: var(--OColor);
     opacity: 0.3;
-    
+    user-select: none;
 }
 .fade{
+    opacity: 0 !important;
+    transition: opacity 0.2s ease !important;
+}
+.fadeReset{
     opacity: 0;
+    transition: 0.3s ease;
 }
 .blueClaim{
 color: var(--XColor);
 text-shadow: 0 0 40px var(--XColor);
 transition: 0.3s ease;
 opacity: 1;
+user-select: none;
+cursor: default;
 }
 .yellowClaim{
 color: var(--OColor);
 text-shadow: 0 0 40px var(--OColor);
 transition: 0.3s ease;
 opacity: 1;
+user-select: none;
+cursor: default;
 }
 .controlCont{
     min-width: 150px;
@@ -403,7 +428,8 @@ opacity: 1;
     }
 }
 @media (min-width: 768px){
-    :root{
+    .playerName1, .playerName2{
+        max-width: 150px;
     }
     .mark1{
         margin: 0;
@@ -433,13 +459,13 @@ opacity: 1;
         align-items: center;
         min-width: 15vw;
         max-width: 20vw;
-        align-self: normal;
+        align-self: stretch;
     }
     .controlCont{
         margin-bottom: 0;
         
         min-width: 10vw;
-        align-self: normal;
+        align-self: stretch;
         flex-direction: column;
         padding: 1rem 2rem;
         gap: 2rem;
@@ -470,8 +496,19 @@ opacity: 1;
     main{
         width: 80%;
     }
+    .playerName1, .playerName2{
+        max-width: 200px;
+    }
 }
 @media (min-width: 1440px){
+    .corner1, .corner2, .corner3{
+    width: 20px;
+    height: 25px;
+
+}
+    .playerName1, .playerName2{
+        max-width: 250px;
+    }
     main{
         width: 60%;
     }
@@ -480,16 +517,6 @@ opacity: 1;
         min-width: 25vw;
     }
     .corner{
-    position: absolute;
-    content: " ";
-    transition: 0.6s ease;
-    width: 20px;
-    height: 20px;
-    border-color: var(--regularGrey);
-    border-style: solid;
-
-}
-.corner1, .corner2, .corner3{
     position: absolute;
     content: " ";
     transition: 0.6s ease;
@@ -518,6 +545,10 @@ opacity: 1;
 @media (min-width: 2560px){
     
 }
-/* Responsiveness, StatCont too wide if name is too long*/
-/* animation on win and fade out of elements*/
+/* prettier h1 */
+/* Responsiveness*/
+
 /* robot difficulty field, robot logic */
+/* straighten win lines on diagonal and column */
+
+/* animated lines */

@@ -10,30 +10,113 @@ const gameBoard = (() => {
         if(gameBoardPieces[id - 1] !== " ") return true;
         else return false
     }
-    const resetBoard = () => {
-        const pieces = document.querySelectorAll(".piece")
+    const resetBoard = (player1, buttonBoolean) => {
+        const currentPlayer = document.querySelector(".currentTurnPlayerNameInsert");
+        const afterVictory = document.querySelector(".afterVictory");
+        const pieces = document.querySelectorAll(".piece");
+        const canvas = document.querySelector(".winCanvas");
+        const ctx = canvas.getContext("2d");
+        let OUTER_TIME = 1350;
+        let INNER_TIME = 650;
+        if(buttonBoolean){
+            OUTER_TIME = 200;
+            INNER_TIME = 200;
+        }
+        else{
+            OUTER_TIME = 1350;
+            INNER_TIME = 650;
+        }
         pieces.forEach(pc => {
-            pc.classList.remove("blueClaim");
-            pc.classList.remove("yellowClaim");
-            pc.textContent = " "
+            setTimeout(() => {
+                pc.classList.remove("blueClaim");
+                pc.classList.remove("yellowClaim");
+                pc.classList.add("fadeReset");
+                currentPlayer.classList.add("fadeReset")
+                currentPlayer.style.color = "#555E62";
+                currentPlayer.style.textShadow = "none";
+                ctx.clearRect(0, 0, canvas.width, canvas.height)
+                setTimeout(() => {
+                    pc.classList.remove("fadeReset");
+                    currentPlayer.classList.remove("fadeReset")
+                    pc.textContent = " ";
+                    afterVictory.textContent = " ";
+                    currentPlayer.textContent = `${player1.name}'S TURN`;
+                    
+                    gameBoardPieces.fill(" ");
+                }, INNER_TIME);
+            }, OUTER_TIME);
+            
         });
-        gameBoardPieces.fill(" ");
     }
     const winCondition = (mark) => {
         const [p1, p2, p3, p4, p5, p6, p7, p8, p9] = gameBoardPieces;
+        const board = document.querySelector(".board");
+        const canvas = document.querySelector(".winCanvas");
+        const ctx = canvas.getContext("2d");
+        canvas.width = board.offsetWidth
+        canvas.height = board.offsetHeight
+        const CWidth = canvas.width;
+        const CHeight = canvas.height;
+        let hor1 = CWidth / 6;
+        let hor2 = CWidth / 2;
+        let hor3 = CWidth * (5 / 6);
+        let ver1 = CHeight / 6;
+        let ver2 = CHeight / 2;
+        let ver3 = CHeight * (5 / 6);
+        function drawLine(h1, h2, v1, v2){
+            ctx.beginPath();
+            ctx.moveTo(h1, v1);
+            ctx.lineTo(h2, v2);
+
+            ctx.stroke()
+            if(mark === "X"){
+                ctx.strokeStyle = "#00EEC5";
+                ctx.shadowColor = "#00EEC5";
+            }
+            if(mark === "O"){
+                ctx.strokeStyle = "#E6D172";
+                ctx.shadowColor = "#E6D172";
+            }
+            ctx.lineWidth = 4;
+            ctx.lineCap = "round";
+            ctx.shadowBlur = 30;
+            ctx.stroke();
+            ctx.closePath();
+        }
         if(
         //Rows
-        ([p1, p2, p3].every(piece => piece === mark)) ||
-        ([p4, p5, p6].every(piece => piece === mark)) ||
-        ([p7, p8, p9].every(piece => piece === mark)) ||
+        [p1, p2, p3].every(piece => piece === mark)){
+            drawLine(hor1 - CWidth * (1 / 11), hor3 + CWidth * (1 / 11), ver1, ver1);
+            return true;
+        }
+        else if([p4, p5, p6].every(piece => piece === mark)){
+            drawLine(hor1 - CWidth * (1 / 11), hor3 + CWidth * (1 / 11), ver2, ver2);
+            return true;
+        }
+        else if([p7, p8, p9].every(piece => piece === mark)){
+            drawLine(hor1 - CWidth * (1 / 11), hor3 + CWidth * (1 / 11), ver3, ver3);
+            return true;
+        }
         //Columns
-        ([p1, p4, p7].every(piece => piece === mark)) ||
-        ([p2, p5, p8].every(piece => piece === mark)) ||
-        ([p3, p6, p9].every(piece => piece === mark)) ||
+        else if([p1, p4, p7].every(piece => piece === mark)){
+            drawLine(hor1, hor1, ver1 - CHeight * (1 / 11), ver3 + CHeight * (1 / 11));
+            return true;
+        }
+        else if([p2, p5, p8].every(piece => piece === mark)){
+            drawLine(hor2, hor2, ver1 - CHeight * (1 / 11), ver3 + CHeight * (1 / 11));
+            return true;
+        }
+        else if([p3, p6, p9].every(piece => piece === mark)){
+            drawLine(hor3, hor3, ver1 - CHeight * (1 / 11), ver3 + CHeight * (1 / 11));
+            return true;
+        }
         //Diagonal
-        ([p1, p5, p9].every(piece => piece === mark)) ||
-         ([p3, p5, p7].every(piece => piece === mark))
-        ){
+        else if([p1, p5, p9].every(piece => piece === mark)){
+            drawLine(hor1 - CWidth * (1 / 11), hor3 + CWidth * (1 / 11), ver1 - CHeight * (1 / 11), ver3 + CHeight * (1 / 11));
+            return true;
+        }
+        else if([p3, p5, p7].every(piece => piece === mark)){
+            drawLine(hor1 - CWidth * (1 / 11), hor3 + CWidth * (1 / 11), ver3 + CHeight * (1 / 11), ver1 - CHeight * (1 / 11));
             return true;
         }
         return false;
@@ -51,7 +134,20 @@ const gameController = (() => {
     let player1 = null;
     let player2 = null;
     let toggle = false;
+    let resetBoolean = false;
+    let buttonBoolean = false;
+    let round = 0;
 
+    const resetWaiter = () => {
+        let BUTTON_TIME = 2000;
+        if(buttonBoolean) BUTTON_TIME = 400;
+        else BUTTON_TIME = 2000;
+        resetBoolean = true
+        setTimeout(() => {
+            resetBoolean = false
+        }, BUTTON_TIME);
+        buttonBoolean = false;
+    }
 
     const setUp = () => {
         const player1Name = localStorage.getItem("player1Name");
@@ -64,9 +160,13 @@ const gameController = (() => {
             player1 = makePlayer(player1Name, player1Type, player1Mark);
             player2 = makePlayer(player2Name, player2Type, player2Mark);
         }
-        else{
+        else if(player1Mark === "O"){
             player1 = makePlayer(player2Name, player2Type, player2Mark);
             player2 = makePlayer(player1Name, player1Type, player1Mark);
+        }
+        else{
+            player1 = makePlayer("PLAYER1", "human", "X");
+            player2 = makePlayer("PLAYER2", "human", "O");
         }
         const insertPlayer1Name = document.querySelector(".playerName1");
         const insertPlayer2Name = document.querySelector(".playerName2");
@@ -94,8 +194,11 @@ const gameController = (() => {
             currentPlayer.style.textShadow = "none"
             afterVictory.textContent = " ";
             currentPlayer.textContent = `${player1.name}'S TURN`;
+            round = 0;
             toggle = false;
-            gameBoard.resetBoard();
+            buttonBoolean = true;
+            gameBoard.resetBoard(player1, buttonBoolean);
+            resetWaiter();
         })
         rematch.addEventListener("click", () => {
             if(toggle){
@@ -111,8 +214,11 @@ const gameController = (() => {
             winNumber1.textContent = player1.score;
             winText2.textContent = "WINS"
             winNumber2.textContent = player2.score;
+            round = 0;
             toggle = false;
-            gameBoard.resetBoard();
+            buttonBoolean = true;
+            gameBoard.resetBoard(player1, buttonBoolean);
+            resetWaiter();
         });
         quit.addEventListener("click", () => {
             document.body.style.opacity = "0"
@@ -124,6 +230,7 @@ const gameController = (() => {
         pieces.forEach(pc => {
             pc.addEventListener("mouseenter", () => {
                 id = Number(pc.id.match(/\d+/)[0]);
+                if(resetBoolean) return
                 if(gameBoard.checkClaim(id)){
                     return;
                 }
@@ -143,20 +250,11 @@ const gameController = (() => {
                 if(gameBoard.checkClaim(id)){
                     return;
                 }
-                if(!toggle){
-                    pc.classList.add("fade");
-                    setTimeout(() => {
-                        pc.classList.remove("blue", "fade");
-                        pc.textContent = " ";
-                    }, 200)
-                }
-                else if(toggle){
-                    pc.classList.add("fade");
-                    setTimeout(() => {
-                        pc.classList.remove("yellow", "fade");
-                        pc.textContent = " ";
-                    }, 200)
-                }
+                pc.classList.add("fade");
+                setTimeout(() => {
+                pc.classList.remove("blue", "yellow", "fade");
+                pc.textContent = " ";
+                }, 200)
             });
         });
         pieces.forEach(pc => {
@@ -165,8 +263,10 @@ const gameController = (() => {
                     if(gameBoard.checkClaim(id)){
                         return;
                     }
+                    if(resetBoolean) return
+                    round += 1;
                     toggle = !toggle
-                    statContCurrent();
+                    
                     currentPlayer.style.color = "#555E62"
                     currentPlayer.style.textShadow = "none"
                     afterVictory.textContent = " ";
@@ -188,14 +288,16 @@ const gameController = (() => {
                             if(player1.score === 1) winText1.textContent = "WIN"
                             else winText1.textContent = "WINS"
                             winNumber1.textContent = player1.score;
-                            gameBoard.resetBoard();
+                            round = 0;
+                            gameBoard.resetBoard(player1, buttonBoolean);
+                            resetWaiter();
                         }
                         else if(gameBoard.fullBoardCheck()){
                             toggle = !toggle
-                            statContCurrent();
                             currentPlayer.textContent = "DRAW";
                             afterVictory.textContent = `${player1.name}'S TURN`;
-                            gameBoard.resetBoard();
+                            gameBoard.resetBoard(player1, buttonBoolean);
+                            resetWaiter();
                         }
                     }
                     else if(!toggle){
@@ -214,9 +316,13 @@ const gameController = (() => {
                             if(player2.score === 1) winText2.textContent = "WIN"
                             else winText2.textContent = "WINS"
                             winNumber2.textContent = player2.score;
-                            gameBoard.resetBoard();
+                            round = 0;
+                            gameBoard.resetBoard(player1, buttonBoolean);
+                            resetWaiter();
                         }
                     }
+                    if(round < 9)statContCurrent();
+                    else round = 0;
                 });
         });
     }
