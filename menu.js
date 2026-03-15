@@ -58,5 +58,12 @@ start.addEventListener("click", () => {
 
     localStorage.setItem("player1Mark", document.querySelector(".xoSel1:checked").value);
     localStorage.setItem("player2Mark", document.querySelector(".xoSel2:checked").value);
-    window.location.href = "game.html";
+    document.body.style.opacity = "0"
+    setTimeout(() => {
+        window.location.href = "game.html"; 
+    }, 1000);
 });
+document.addEventListener("DOMContentLoaded", () => {
+    document.body.offsetHeight;
+    document.body.style.opacity = "1";
+})

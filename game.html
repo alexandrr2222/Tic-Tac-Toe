@@ -50,27 +50,29 @@
                     <div class="currentTurnMarkCont">
                         <div class="CTXCont">
                             <div class="currentTurnX opacityUpX">X</div>
-                            <svg class="xShadow shadow" height="5" xmlns="http://www.w3.org/2000/svg">
-                                <rect width="100%" height="5" fill="url(#XShadow)"/>
+                            <!-- <svg class="xShadow shadow" viewBox="0 0 20 2" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="20" height="2" fill="url(#paint0_radial_70_244)"/>
                                 <defs>
-                                    <radialGradient id="XShadow" cx="0.5" cy="0.5" r="0.5" gradientUnits="objectBoundingBox">
+                                    <radialGradient id="paint0_radial_70_244" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(10 1) scale(10 1)">
                                         <stop stop-color="#00EEC5"/>
                                         <stop offset="1" stop-color="#00EEC5" stop-opacity="0"/>
                                     </radialGradient>
                                 </defs>
-                            </svg>
+                            </svg> -->
                         </div>
                         <div class="CTOCont">
                             <div class="currentTurnO">O</div>
-                            <svg class="oShadow shadow hider" height="5" xmlns="http://www.w3.org/2000/svg">
-                                <rect width="100%" height="5" fill="url(#OShadow)"/>
+                            <!-- <svg class="oShadow shadow hider" viewBox="0 0 20 2" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="20" height="2" fill="url(#paint0_radial_70_286)"/>
                                 <defs>
-                                    <radialGradient id="OShadow" cx="0.5" cy="0.5" r="0.5" gradientUnits="objectBoundingBox">
+                                    <radialGradient id="paint0_radial_70_286" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(10 1) scale(10 1)">
                                         <stop stop-color="#E6D172"/>
                                         <stop offset="1" stop-color="#E6D172" stop-opacity="0"/>
                                     </radialGradient>
                                 </defs>
-                            </svg>
+                            </svg> -->
+
+
                         </div>
                     </div>
                 </div>
@@ -93,7 +95,6 @@
                         </radialGradient>
                     </defs>
                 </svg>
-                </svg>
                 <div class="player2">
                     <div class="playerName2">phN</div>
                     <div class="mark2">O</div>
@@ -102,12 +103,54 @@
                 </div>
             </div>
             <div class="mainBoard">
+                
                 <div class="boardWrapper">
-                    <!-- <span class="tlCorner corner"></span>
+                    
+                    
+                    <div class="board">
+                    <span class="tlCorner corner"></span>
                     <span class="trCorner corner"></span>
                     <span class="blCorner corner"></span>
-                    <span class="brCorner corner"></span> -->
-                    <div class="board">
+                    <span class="brCorner corner"></span>
+
+                    <svg class="gridLine1" viewBox="0 0 134 3" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+                        <path d="M1.5 1.5H132.5" stroke="url(#paint0_radial_98_213)" stroke-width="1" stroke-linecap="round"/>
+                        <defs>
+                            <radialGradient id="paint0_radial_98_213" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(67 2) scale(65.5 0.5)">
+                                <stop stop-color="#555E62"/>
+                                <stop offset="1" stop-color="#ADC0C8" stop-opacity="0"/>
+                            </radialGradient>
+                        </defs>
+                    </svg>
+
+                    <svg class="gridLine2" viewBox="0 0 134 3" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+                        <path d="M1.5 1.5H132.5" stroke="url(#paint0_radial_98_214)" stroke-width="1" stroke-linecap="round"/>
+                        <defs>
+                            <radialGradient id="paint0_radial_98_214" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(67 2) scale(65.5 0.5)">
+                                <stop stop-color="#555E62"/>
+                                <stop offset="1" stop-color="#ADC0C8" stop-opacity="0"/>
+                            </radialGradient>
+                        </defs>
+                    </svg>
+                    <svg class="gridLine3" viewBox="0 0 3 134" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+                        <path d="M1.5 1.5V132.5" stroke="url(#paint0_radial_98_288)" stroke-width="1" stroke-linecap="round"/>
+                        <defs>
+                            <radialGradient id="paint0_radial_98_288" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(1 67) rotate(90) scale(65.5 0.5)">
+                                <stop stop-color="#555E62"/>
+                                <stop offset="1" stop-color="#ADC0C8" stop-opacity="0"/>
+                            </radialGradient>
+                        </defs>
+                    </svg>
+                    <svg class="gridLine4" viewBox="0 0 3 134" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+                        <path d="M1.5 1.5V132.5" stroke="url(#paint0_radial_98_2889)" stroke-width="1" stroke-linecap="round"/>
+                        <defs>
+                            <radialGradient id="paint0_radial_98_2889" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(1 67) rotate(90) scale(65.5 0.5)">
+                                <stop stop-color="#555E62"/>
+                                <stop offset="1" stop-color="#ADC0C8" stop-opacity="0"/>
+                            </radialGradient>
+                        </defs>
+                    </svg>
+
                         <div class="piece" id="P1"></div>
                         <div class="piece" id="P2"></div>
                         <div class="piece" id="P3"></div>
@@ -120,6 +163,7 @@
                     </div>
                 </div>
                 <div class="currentTurnPlayerNameInsert"></div>
+                <div class="afterVictory"></div>
             </div>
             <div class="controlCont">
                 <span class="tlCorner corner"></span>

@@ -37,6 +37,8 @@ img {
     /* COLORS */
     --backgroundSolid: #0E1016;
     --backgroundGradient: linear-gradient(to bottom, #204E4433, #00000033);
+    /* --backgroundGradient: linear-gradient(to bottom, #204E4433, #00000033); */
+    --boardGradient: linear-gradient(to bottom, #204E4433, #00000033);
     --h1color: linear-gradient(to bottom, #A9B3B8, #555E62);
     --highlightGrey: #A9B3B8;
     --regularGrey: #555E62;
@@ -45,14 +47,13 @@ img {
     /* FONTS */
     font-family: "Hedvig Letters Serif";
     color: var(--regularGrey);
-    letter-spacing: 0.2rem;
-    --regularSize: 0.75rem;
-    --nameSize: 0.835rem;
-    --markSize: 1.2rem;
+    letter-spacing: clamp(0.2rem, 0.3vw, 0.4rem);
+    --regularSize: clamp(0.75rem, 1vw, 1rem);
+    --pieceSize: clamp(4rem, 5vw, 8rem);
+    --nameSize: clamp(0.835rem, 1.3vw, 1.1rem);
+    --markSize: clamp(1.2rem, 1.5vw, 1.8rem);
     --mainHeaderSize: clamp(2.2rem, 3.7vw, 4.8rem);
-    --ButtonSize: 1rem;
-    --iconSelectSize: 2.5rem;
-    --vsSize: 3rem;
+    --ButtonSize: clamp(1rem, 1.2vw, 1.4rem);
     /* OPACITY */
     --unselectedOpacity: 0.15;
 }
@@ -62,6 +63,10 @@ html, body{
     background: var(--backgroundGradient);
     background-color: var(--backgroundSolid);
     background-attachment: fixed;
+}
+body{
+    opacity: 0;
+    transition: opacity 1s ease;
 }
 .mainContentGame{
     display: flex;
@@ -100,26 +105,23 @@ main{
     box-shadow: 0 0 0 1px rgba(169,179,184,0.08), 0 8px 32px rgba(0,0,0,0.4), 0 2px 8px rgba(0,0,0,0.3);
     background-color: var(--backgroundGradient);
 }
-    .player1{
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-    }
-        .playerName1{
-            font-size: var(--nameSize);
-        }
-        .mark1{
-            color: var(--XColor);
-            font-size: var(--markSize);
-            margin: 0.3rem 0;
-        }
-        .winNumber1{
-            color: var(--highlightGrey);
-        }
-        .winText1{
-
-        }
+.player1{
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+}
+.playerName1{
+    font-size: var(--nameSize);
+}
+.mark1{
+    color: var(--XColor);
+    font-size: var(--markSize);
+    margin: 0.3rem 0;
+}
+.winNumber1{
+    color: var(--highlightGrey);
+}
 .horizontalSeparator{
     width: 1rem;
     display: flex;
@@ -139,18 +141,19 @@ main{
 .currentTurnPlayerNameInsert{
     margin-top: 1rem;
     font-size: var(--ButtonSize);
-}
-        .currentTurnText{
+    transition: 0.3s ease;
 
-        }
-        .currentTurnMarkCont{
-            margin-top: 1.3rem;
-            display: flex;
-            gap: 1.5rem;
-        }
-            .CTXCont{
-                
-            }
+}
+.afterVictory{
+    color: var(--regularGrey);
+    font-size: var(--ButtonSize);
+    transition: 0.3s ease;
+}
+.currentTurnMarkCont{
+    margin-top: 1.3rem;
+    display: flex;
+    gap: 1.5rem;
+}
 .currentTurnX{
     font-size: var(--markSize);
     color: var(--XColor);
@@ -159,14 +162,20 @@ main{
 .opacityUpX{
     opacity: 1;
     text-shadow: 0 0 15px var(--XColor);
+    transition: 0.3s ease;
 }
 .shadow{
     opacity: 1;
-    margin-top: -0.3rem;
-    margin-right: 0.21rem;
-    width: 1rem;
-    height: 0.15rem;
+    margin-top: -0.25rem;
+    margin-right: 0.34rem;
     display: block;
+    
+}
+.oShadow{
+
+}
+.xShadow{
+    margin-right: 0.44rem;
 }
 .hider{
     visibility: hidden;
@@ -180,31 +189,26 @@ main{
     opacity: var(--unselectedOpacity);
 }
 .opacityUpO{
+    transition: 0.3s ease;
     opacity: 1;
     text-shadow: 0 0 15px var(--OColor);
 }
-                .OShadow{
-                    
-                }
-    .player2{
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-        .playerName2{
-            font-size: var(--nameSize);
-        }
-        .mark2{
-            color: var(--OColor);
-            font-size: var(--markSize);
-            margin: 0.3rem 0;
-        }
-        .winNumber2{
-            color: var(--highlightGrey);
-        }
-        .winText2{
-
-        }
+.player2{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.playerName2{
+    font-size: var(--nameSize);
+}
+.mark2{
+    color: var(--OColor);
+    font-size: var(--markSize);
+    margin: 0.3rem 0;
+}
+.winNumber2{
+    color: var(--highlightGrey);
+}
 .mainBoard{
     display: flex;
     flex-direction: column;
@@ -220,29 +224,86 @@ main{
     display: flex;
     justify-content: center;
     position: relative;
+    box-shadow: 0 0 0 1px rgba(169,179,184,0.08), 0 8px 32px rgba(0,0,0,0.4), 0 2px 8px rgba(0,0,0,0.3);
+    
 }
-    .board{
-        width: 100%;
-        display: grid;
-        background-color: var(--backgroundSolid);
-        grid-template-columns: 1fr 1fr 1fr;
-        grid-auto-rows: 1fr 1fr 1fr;
-        
-    }
-        .piece{
-            width: 100%;
-            border: dotted 1px black;
-            aspect-ratio: 1;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 4rem;
-            
-        }
-
-    .currentTurnPlayerName{
-
-    }
+.board{
+    width: 100%;
+    height: 100%;
+    display: grid;
+    position: relative;
+    background-color: var(--boardGradient);
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-auto-rows: 1fr 1fr 1fr;
+    
+}
+.board:hover .corner{
+    width: 23px;
+    height: 23px;
+    border-color: var(--highlightGrey);
+}
+.piece{
+    font-size: var(--pieceSize);
+    width: 100%;
+    aspect-ratio: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+.gridLine1, .gridLine2, .gridLine3, .gridLine4{
+    position: absolute;
+    pointer-events: none;
+    opacity: 0.7;
+}
+.gridLine1{
+    top: 33.33%;
+    left: 0;
+    transform: translateY(-50%);
+}
+.gridLine2{
+    top: 66.66%;
+    left: 0;
+    transform: translateY(-50%);
+}
+.gridLine3{
+    left: 33.33%;
+    top: 0;
+    height: 100%;
+    transform: translateX(-50%);
+}
+.gridLine4{
+    left: 66.66%;
+    top: 0;
+    height: 100%;
+    transform: translateX(-50%);
+}
+.blue{
+    color: var(--XColor);
+    opacity: 0.3;
+    
+}
+.yellow{
+    color: var(--OColor);
+    opacity: 0.3;
+    
+}
+.fade{
+    opacity: 0;
+}
+.blueClaim{
+color: var(--XColor);
+text-shadow: 0 0 40px var(--XColor);
+transition: 0.3s ease;
+opacity: 1;
+}
+.yellowClaim{
+color: var(--OColor);
+text-shadow: 0 0 40px var(--OColor);
+transition: 0.3s ease;
+opacity: 1;
+}
 .controlCont{
     min-width: 150px;
     padding: 1.5rem 3.75rem;
@@ -316,6 +377,7 @@ main{
     height: 23px;
     border-color: var(--highlightGrey);
 }
+
 .controlCont:hover .corner{
     width: 23px;
     height: 23px;
@@ -330,7 +392,6 @@ main{
 }
 @media (min-width: 375px){
     :root{
-        --nameSize: 0.9rem;
     }
 }
 @media (min-width: 438px){
@@ -342,6 +403,14 @@ main{
     }
 }
 @media (min-width: 768px){
+    :root{
+    }
+    .mark1{
+        margin: 0;
+    }
+    .mark2{
+        margin: 0;
+    }
     main{
         flex-direction: row;
         width: 90%;
@@ -349,23 +418,48 @@ main{
     .mainBoard{
         justify-content: center;
     }
+    .horizontalSeparator{   
+        position: absolute;
+        visibility: hidden;
+    }
+    .verticalSeparator{
+        position: relative;
+        visibility: visible;
+        display: flex;
+        align-self: center;
+    }
     .statCont{
         flex-direction: column;
         align-items: center;
-    }
-    .controlCont{
-        flex-direction: column;
-    }
-    .currentTurnPlayerNameInsert{
-        position: absolute;
-        bottom: -3rem;
-        font-size: 5rem;
+        min-width: 15vw;
+        max-width: 20vw;
+        align-self: normal;
     }
     .controlCont{
         margin-bottom: 0;
+        
+        min-width: 10vw;
+        align-self: normal;
+        flex-direction: column;
+        padding: 1rem 2rem;
+        gap: 2rem;
     }
-    .separator{
-        transform: rotate(0deg);
+    .currentTurnPlayerNameInsert{
+        position: absolute;
+        bottom: -5rem;
+    }
+    .afterVictory{
+        position: absolute;
+        bottom: -8rem;
+    }
+    .currentTurnMarkCont{
+        margin-top: 1rem;
+    }
+    .controlCont button{
+        min-width: 9.2rem;
+        letter-spacing: 0.1rem;
+        padding: 0.6rem 0.7rem;
+        
     }
 }
 @media (min-width: 1024px){
@@ -378,13 +472,12 @@ main{
     }
 }
 @media (min-width: 1440px){
-    :root{
-        --regularSize: 1rem;
-        --nameSize: 1.3rem;
-        --markSize: 1.5rem;
-    }
     main{
         width: 60%;
+    }
+    .boardWrapper{
+        width: 100%;
+        min-width: 25vw;
     }
     .corner{
     position: absolute;
@@ -416,11 +509,15 @@ main{
     height: 40px;
     border-color: var(--highlightGrey);
 }
+.board:hover .corner{
+    width: 40px;
+    height: 40px;
+    border-color: var(--highlightGrey);
+}
 }
 @media (min-width: 2560px){
-    main{
-        width: 45%;
-    }
+    
 }
-/* StatCont too wide if name is too long, distance between shadow and curTurnMArk, fix shadow under curTurnMark */
-/* Responsiveness, style board, hover shadows, board animations fadeins for page swaps, duration on buttons  */
+/* Responsiveness, StatCont too wide if name is too long*/
+/* animation on win and fade out of elements*/
+/* robot difficulty field, robot logic */
