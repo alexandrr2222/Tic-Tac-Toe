@@ -156,13 +156,19 @@ const gameController = (() => {
         const player2Type = localStorage.getItem("player2Type");
         const player1Mark = localStorage.getItem("player1Mark");
         const player2Mark = localStorage.getItem("player2Mark");
+        const player1Diff = localStorage.getItem("player1Diff");
+        const player2Diff = localStorage.getItem("player2Diff");
         if(player1Mark === "X"){
-            player1 = makePlayer(player1Name, player1Type, player1Mark);
-            player2 = makePlayer(player2Name, player2Type, player2Mark);
+            player1 = makePlayer(player1Name, player1Type, player1Mark, player1Diff);
+            player1Name.title = player1Name;
+            player2 = makePlayer(player2Name, player2Type, player2Mark, player2Diff);
+            player2Name.title = player2Name;
         }
         else if(player1Mark === "O"){
-            player1 = makePlayer(player2Name, player2Type, player2Mark);
-            player2 = makePlayer(player1Name, player1Type, player1Mark);
+            player1 = makePlayer(player2Name, player2Type, player2Mark, player2Diff);
+            player1Name.title = player2Name;
+            player2 = makePlayer(player1Name, player1Type, player1Mark, player1Diff);
+            player2Name.title = player1Name;
         }
         else{
             player1 = makePlayer("PLAYER1", "human", "X");
@@ -340,7 +346,7 @@ const gameController = (() => {
   return {setUp, setListeners}
 })()
 
-function makePlayer(name, type, mark){
+function makePlayer(name, type, mark, diff){
     return{
         name,
         type,

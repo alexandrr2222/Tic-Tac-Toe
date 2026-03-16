@@ -546,9 +546,14 @@ cursor: default;
     
 }
 /* prettier h1 */
-/* Responsiveness*/
+/* Responsiveness - 
+320(statCont too large, the board outgrows Conts, win/turn field)
+720+(better scalable boardPieces and title, same size Conts*/
+
+/* blinking undertext on reset */
 
 /* robot difficulty field, robot logic */
 /* straighten win lines on diagonal and column */
 
-/* animated lines */
+/* animated lines
+impossible robot */
