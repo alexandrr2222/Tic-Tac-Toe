@@ -6,11 +6,20 @@ const gameBoard = (() => {
         else if(player.mark === "O") drawPiece.textContent = "O";
         gameBoardPieces[id - 1] = player.mark;
     }
+    const claimPieceRobot = (player, diff) => {
+        for(const[index, item] of gameBoardPieces.entries()){
+            console.log(Math.floor(Math.random() * (8 - 0 + 1)) + 0)
+            // console.log(index, item)
+            if(item === " "){
+                
+            }
+        }
+    }
     const checkClaim = (id) => {
         if(gameBoardPieces[id - 1] !== " ") return true;
         else return false
     }
-    const resetBoard = (player1, buttonBoolean) => {
+    const resetBoard = (player1, buttonBoolean, br) => {
         const currentPlayer = document.querySelector(".currentTurnPlayerNameInsert");
         const afterVictory = document.querySelector(".afterVictory");
         const pieces = document.querySelectorAll(".piece");
@@ -31,7 +40,8 @@ const gameBoard = (() => {
                 pc.classList.remove("blueClaim");
                 pc.classList.remove("yellowClaim");
                 pc.classList.add("fadeReset");
-                currentPlayer.classList.add("fadeReset")
+                if(br !== "y"){currentPlayer.classList.add("fadeReset")
+                }
                 currentPlayer.style.color = "#555E62";
                 currentPlayer.style.textShadow = "none";
                 ctx.clearRect(0, 0, canvas.width, canvas.height)
@@ -127,7 +137,7 @@ const gameBoard = (() => {
         }
         return false;
     }
-    return {claimPiece, resetBoard, winCondition, fullBoardCheck, checkClaim};
+    return {claimPiece, resetBoard, winCondition, fullBoardCheck, checkClaim, claimPieceRobot};
 })()
 
 const gameController = (() => {
@@ -196,24 +206,18 @@ const gameController = (() => {
             if(toggle){
                 statContCurrent();
             }
-            currentPlayer.style.color = "#555E62"
-            currentPlayer.style.textShadow = "none"
-            afterVictory.textContent = " ";
-            currentPlayer.textContent = `${player1.name}'S TURN`;
+            let buttonReset = "y";
             round = 0;
             toggle = false;
             buttonBoolean = true;
-            gameBoard.resetBoard(player1, buttonBoolean);
+            gameBoard.resetBoard(player1, buttonBoolean, buttonReset);
             resetWaiter();
         })
         rematch.addEventListener("click", () => {
             if(toggle){
                 statContCurrent();
             }
-            currentPlayer.style.color = "#555E62"
-            afterVictory.textContent = " ";
-            currentPlayer.style.textShadow = "none"
-            currentPlayer.textContent = `${player1.name}'S TURN`;
+            let buttonReset = "y";
             player1.score = 0;
             player2.score = 0;
             winText1.textContent = "WINS"
@@ -223,7 +227,7 @@ const gameController = (() => {
             round = 0;
             toggle = false;
             buttonBoolean = true;
-            gameBoard.resetBoard(player1, buttonBoolean);
+            gameBoard.resetBoard(player1, buttonBoolean, buttonReset);
             resetWaiter();
         });
         quit.addEventListener("click", () => {
@@ -270,6 +274,14 @@ const gameController = (() => {
                         return;
                     }
                     if(resetBoolean) return
+                    // if(player1.diff !== null && !toggle){
+                    //     playRobot(player1);
+                    //     return;
+                    // }
+                    // if(player2.diff !== null && toggle){
+                    //     playRobot(player2);
+                    //     return;
+                    // }
                     round += 1;
                     toggle = !toggle
                     
@@ -305,6 +317,7 @@ const gameController = (() => {
                             gameBoard.resetBoard(player1, buttonBoolean);
                             resetWaiter();
                         }
+                        if(player2.diff !== null)playRobot(player2);
                     }
                     else if(!toggle){
                         pc.classList.remove("yellow");
@@ -327,6 +340,7 @@ const gameController = (() => {
                             resetWaiter();
                         }
                     }
+                    if(player1.diff !== null)playRobot(player1);
                     if(round < 9)statContCurrent();
                     else round = 0;
                 });
@@ -335,15 +349,19 @@ const gameController = (() => {
     const statContCurrent = () => {
         const currentTurnX = document.querySelector(".currentTurnX");
         const currentTurnO = document.querySelector(".currentTurnO");
-        // const xShadow = document.querySelector(".xShadow");
-        // const oShadow = document.querySelector(".oShadow");
         currentTurnX.classList.toggle("opacityUpX");
         currentTurnO.classList.toggle("opacityUpO");
-        // xShadow.classList.toggle("hider");
-        // oShadow.classList.toggle("hider");
+    }
+    const playRobot = (player) => {
+        console.log("clanker moves")
+    }
+    const startRobot = () => {
+        setTimeout(() => {
+            if(player1.diff !== null) playRobot();
+        }, 1000);
     }
 
-  return {setUp, setListeners}
+  return {setUp, setListeners, startRobot}
 })()
 
 function makePlayer(name, type, mark, diff){
@@ -351,6 +369,7 @@ function makePlayer(name, type, mark, diff){
         name,
         type,
         mark,
+        diff,
         score: 0
     }
 }
@@ -361,3 +380,4 @@ document.addEventListener("DOMContentLoaded", () => {
 })
 gameController.setUp()
 gameController.setListeners()
+gameController.startRobot()
