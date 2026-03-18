@@ -375,6 +375,7 @@ const gameController = (() => {
             buttonBoolean = true;
             gameBoard.resetBoard(player2, player1, buttonBoolean, buttonReset);
             resetWaiter();
+            if(player1.diff !== null)startRobot()
         })
         rematch.addEventListener("click", () => {
             if(toggle){
@@ -392,6 +393,7 @@ const gameController = (() => {
             buttonBoolean = true;
             gameBoard.resetBoard(player2, player1, buttonBoolean, buttonReset);
             resetWaiter();
+            if(player1.diff !== null)startRobot()
         });
         quit.addEventListener("click", () => {
             document.body.style.opacity = "0"
