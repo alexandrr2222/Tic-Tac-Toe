@@ -104,6 +104,13 @@ const robotMenu = (() => {
 
     return {swapLogic, openMenuLogic, selectMenuItem}
 })()
+
+localStorage.clear()
+const reload = performance.getEntriesByType("navigation")
+if(reload.length > 0 && reload[0].type === "back_forward"){
+    window.location.reload()
+}
+
 robotMenu.swapLogic()
 robotMenu.openMenuLogic()
 robotMenu.selectMenuItem()

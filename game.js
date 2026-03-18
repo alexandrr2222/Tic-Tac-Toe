@@ -6,20 +6,115 @@ const gameBoard = (() => {
         else if(player.mark === "O") drawPiece.textContent = "O";
         gameBoardPieces[id - 1] = player.mark;
     }
-    const claimPieceRobot = (player, diff) => {
-        for(const[index, item] of gameBoardPieces.entries()){
-            console.log(Math.floor(Math.random() * (8 - 0 + 1)) + 0)
-            // console.log(index, item)
-            if(item === " "){
-                
+    const claimPieceRobot = (player) => {
+
+        function CheckEnemy(pc1, pc2, pc3, number1, number2, number3, mode){
+            let checkMark = null;
+            if(player.mark === "X"){
+                if(mode === "hard") checkMark = "X";
+                else checkMark = "O";
             }
+            else{
+                if(mode === "hard") checkMark = "O";
+                else checkMark = "X";
+            }
+            let workArray = [pc1, pc2, pc3];
+            if(!workArray.includes(" ")) return false;
+            let filteredArray = workArray.filter((pc) => {
+                return pc === checkMark
+            })
+            if(filteredArray.length === 2){
+                let chosenNum = null;
+                const emptySpot = workArray.indexOf(" ");
+                if(emptySpot === 0) chosenNum = number1
+                else if(emptySpot === 1) chosenNum = number2
+                else if(emptySpot === 2) chosenNum = number3
+
+                gameBoardPieces[chosenNum - 1] = player.mark;
+                const drawPiece = document.querySelector(`#P${chosenNum}`);
+                if(player.mark === "X"){
+                    drawPiece.classList.add("blueClaim");
+                    drawPiece.textContent = "X";
+                }
+                else if(player.mark === "O"){
+                    drawPiece.classList.add("yellowClaim");
+                    drawPiece.textContent = "O";
+                }
+                return true;
+            }
+        }
+        function chooseRandom(){
+            const emptyIndexes = [];
+            for(const[index, item] of gameBoardPieces.entries()){
+                if(item === " "){
+                    emptyIndexes.push(index)
+                }
+            }
+            let randomIndex = Math.floor(Math.random() * emptyIndexes.length);
+            let claimedPiece = emptyIndexes[randomIndex]
+            gameBoardPieces[claimedPiece] = player.mark;
+            const drawPiece = document.querySelector(`#P${claimedPiece+1}`);
+            if(player.mark === "X"){
+                    drawPiece.classList.add("blueClaim");
+                    drawPiece.textContent = "X";
+            }
+            else if(player.mark === "O"){
+                drawPiece.classList.add("yellowClaim");
+                drawPiece.textContent = "O";
+            }
+        }
+
+        if(player.diff === "EASY"){
+            chooseRandom()
+        }
+        else if(player.diff === "MEDIUM"){
+            const [p1, p2, p3, p4, p5, p6, p7, p8, p9] = gameBoardPieces;
+
+            if(CheckEnemy(p1, p2, p3, 1, 2, 3))return
+            else if(CheckEnemy(p4, p5, p6, 4, 5, 6))return
+            else if(CheckEnemy(p7, p8, p9, 7, 8, 9))return
+
+            else if(CheckEnemy(p1, p4, p7, 1, 4, 7))return
+            else if(CheckEnemy(p2, p5, p8, 2, 5, 8))return
+            else if(CheckEnemy(p3, p6, p9, 3, 6, 9))return
+
+            else if(CheckEnemy(p1, p5, p9, 1, 5, 9))return
+            else if(CheckEnemy(p3, p5, p7, 3, 5, 7))return
+            else chooseRandom()
+
+        }
+        else if(player.diff === "HARD"){
+            const [p1, p2, p3, p4, p5, p6, p7, p8, p9] = gameBoardPieces;
+            
+            if(CheckEnemy(p1, p2, p3, 1, 2, 3, "hard"))return
+            else if(CheckEnemy(p4, p5, p6, 4, 5, 6, "hard"))return
+            else if(CheckEnemy(p7, p8, p9, 7, 8, 9, "hard"))return
+
+            else if(CheckEnemy(p1, p4, p7, 1, 4, 7, "hard"))return
+            else if(CheckEnemy(p2, p5, p8, 2, 5, 8, "hard"))return
+            else if(CheckEnemy(p3, p6, p9, 3, 6, 9, "hard"))return
+
+            else if(CheckEnemy(p1, p5, p9, 1, 5, 9, "hard"))return
+            else if(CheckEnemy(p3, p5, p7, 3, 5, 7, "hard"))return
+
+            else if(CheckEnemy(p1, p2, p3, 1, 2, 3))return
+            else if(CheckEnemy(p4, p5, p6, 4, 5, 6))return
+            else if(CheckEnemy(p7, p8, p9, 7, 8, 9))return
+
+            else if(CheckEnemy(p1, p4, p7, 1, 4, 7))return
+            else if(CheckEnemy(p2, p5, p8, 2, 5, 8))return
+            else if(CheckEnemy(p3, p6, p9, 3, 6, 9))return
+
+            else if(CheckEnemy(p1, p5, p9, 1, 5, 9))return
+            else if(CheckEnemy(p3, p5, p7, 3, 5, 7))return
+            else chooseRandom()
         }
     }
     const checkClaim = (id) => {
         if(gameBoardPieces[id - 1] !== " ") return true;
         else return false
     }
-    const resetBoard = (player1, buttonBoolean, br) => {
+    const resetBoard = (player2, player1, buttonBoolean, br) => {
         const currentPlayer = document.querySelector(".currentTurnPlayerNameInsert");
         const afterVictory = document.querySelector(".afterVictory");
         const pieces = document.querySelectorAll(".piece");
@@ -49,6 +144,9 @@ const gameBoard = (() => {
                     pc.classList.remove("fadeReset");
                     currentPlayer.classList.remove("fadeReset")
                     pc.textContent = " ";
+                    if(player1.diff !== null || player2.diff !== null){
+                        currentPlayer.style.display = "none";
+                    }
                     afterVictory.textContent = " ";
                     currentPlayer.textContent = `${player1.name}'S TURN`;
                     
@@ -89,7 +187,7 @@ const gameBoard = (() => {
             }
             ctx.lineWidth = 4;
             ctx.lineCap = "round";
-            ctx.shadowBlur = 30;
+            ctx.shadowBlur = 0;
             ctx.stroke();
             ctx.closePath();
         }
@@ -169,16 +267,32 @@ const gameController = (() => {
         const player1Diff = localStorage.getItem("player1Diff");
         const player2Diff = localStorage.getItem("player2Diff");
         if(player1Mark === "X"){
+            if(player1Diff !== null && player2Diff !== null){
+                player1 = makePlayer(player1Diff + " BOT", player1Type, player1Mark, player1Diff);
+                player1Name.title = player1Diff + " BOT";
+                player2 = makePlayer(player2Diff + " BOT", player2Type, player2Mark, player2Diff);
+                player2Name.title = player2Diff + " BOT";
+            }
+            else{
             player1 = makePlayer(player1Name, player1Type, player1Mark, player1Diff);
             player1Name.title = player1Name;
             player2 = makePlayer(player2Name, player2Type, player2Mark, player2Diff);
             player2Name.title = player2Name;
+            }
         }
         else if(player1Mark === "O"){
+            if(player1Diff !== null && player2Diff !== null){
+                player1 = makePlayer(player2Diff + " BOT", player2Type, player2Mark, player2Diff);
+                player1Name.title = player2Diff + " BOT";
+                player2 = makePlayer(player1Diff + " BOT", player1Type, player1Mark, player1Diff);
+                player2Name.title = player1Diff + " BOT";
+            }
+            else{
             player1 = makePlayer(player2Name, player2Type, player2Mark, player2Diff);
             player1Name.title = player2Name;
             player2 = makePlayer(player1Name, player1Type, player1Mark, player1Diff);
             player2Name.title = player1Name;
+            }
         }
         else{
             player1 = makePlayer("PLAYER1", "human", "X");
@@ -188,6 +302,52 @@ const gameController = (() => {
         const insertPlayer2Name = document.querySelector(".playerName2");
         insertPlayer1Name.textContent = player1.name;
         insertPlayer2Name.textContent = player2.name;
+        const currentPlayer = document.querySelector(".currentTurnPlayerNameInsert");
+        currentPlayer.textContent = `${player1.name}'S TURN`;
+    }
+
+    const onWin = (player) => {
+        const currentPlayer = document.querySelector(".currentTurnPlayerNameInsert");
+        const winNumber1 = document.querySelector(".winNumber1");
+        const winNumber2 = document.querySelector(".winNumber2");
+        const winText1 = document.querySelector(".winText1");
+        const winText2 = document.querySelector(".winText2");
+        const afterVictory = document.querySelector(".afterVictory")
+        player.score += 1;
+        if(player.mark === "X"){
+            toggle = !toggle
+            statContCurrent();
+            currentPlayer.style.display = "block"
+            currentPlayer.style.color = "#00EEC5"
+            currentPlayer.style.textShadow = "0 0 25px #00EEC5"
+            if(player.score === 1) winText1.textContent = "WIN"
+            else winText1.textContent = "WINS"
+            winNumber1.textContent = player.score;
+        }
+        else{
+            currentPlayer.style.display = "block"
+            currentPlayer.style.color = "#E6D172"
+            currentPlayer.style.textShadow = "0 0 25px #E6D172"
+            if(player.score === 1) winText2.textContent = "WIN"
+            else winText2.textContent = "WINS"
+            winNumber2.textContent = player.score;
+        }
+        currentPlayer.textContent = `${player.name} CLAIMS VICTORY!`;
+        currentPlayer.style.transition = "0.3s ease"
+        afterVictory.textContent = `${player1.name}'S TURN`;
+        round = 0;
+        gameBoard.resetBoard(player2, player1, buttonBoolean);
+        resetWaiter();
+    }
+    const onDraw = () => {
+        const currentPlayer = document.querySelector(".currentTurnPlayerNameInsert");
+        const afterVictory = document.querySelector(".afterVictory")
+        toggle = !toggle
+        if(player1.diff !== null || player2.diff !== null)currentPlayer.style.display = "block"
+        currentPlayer.textContent = "DRAW";
+        afterVictory.textContent = `${player1.name}'S TURN`;
+        gameBoard.resetBoard(player2, player1, buttonBoolean);
+        resetWaiter();
     }
 
     const setListeners = () => {
@@ -201,7 +361,10 @@ const gameController = (() => {
         const rematch = document.querySelector(".rematch");
         const quit = document.querySelector(".quit");
         const afterVictory = document.querySelector(".afterVictory")
-        const body = document.querySelector("body");
+        if(player1.diff !== null || player2.diff !== null){
+            currentPlayer.style.display = "none"
+            afterVictory.style.display = "none"
+        }
         newGame.addEventListener("click", () => {
             if(toggle){
                 statContCurrent();
@@ -210,7 +373,7 @@ const gameController = (() => {
             round = 0;
             toggle = false;
             buttonBoolean = true;
-            gameBoard.resetBoard(player1, buttonBoolean, buttonReset);
+            gameBoard.resetBoard(player2, player1, buttonBoolean, buttonReset);
             resetWaiter();
         })
         rematch.addEventListener("click", () => {
@@ -227,7 +390,7 @@ const gameController = (() => {
             round = 0;
             toggle = false;
             buttonBoolean = true;
-            gameBoard.resetBoard(player1, buttonBoolean, buttonReset);
+            gameBoard.resetBoard(player2, player1, buttonBoolean, buttonReset);
             resetWaiter();
         });
         quit.addEventListener("click", () => {
@@ -239,6 +402,9 @@ const gameController = (() => {
         });
         pieces.forEach(pc => {
             pc.addEventListener("mouseenter", () => {
+                if(player1.diff !== null && !toggle) return
+                if(player2.diff !== null && toggle) return
+                if(player1.diff !== null && player2.diff !== null)return
                 id = Number(pc.id.match(/\d+/)[0]);
                 if(resetBoolean) return
                 if(gameBoard.checkClaim(id)){
@@ -256,6 +422,9 @@ const gameController = (() => {
         });
         pieces.forEach(pc => {
             pc.addEventListener("mouseleave", () => {
+                if(player1.diff !== null && !toggle) return
+                if(player2.diff !== null && toggle) return
+                if(player1.diff !== null && player2.diff !== null)return
                 id = Number(pc.id.match(/\d+/)[0]);
                 if(gameBoard.checkClaim(id)){
                     return;
@@ -269,19 +438,18 @@ const gameController = (() => {
         });
         pieces.forEach(pc => {
                 pc.addEventListener("click", () => {
+                    if(player1.diff !== null && player2.diff !== null)return
+                    if(player1.diff !== null && !toggle) return
+                    if(player2.diff !== null && toggle) return
+                    if(player1.diff !== null || player2.diff !== null){
+                        currentPlayer.style.display = "none"
+                        afterVictory.style.display = "none"
+                    }
                     id = Number(pc.id.match(/\d+/)[0]);
                     if(gameBoard.checkClaim(id)){
                         return;
                     }
                     if(resetBoolean) return
-                    // if(player1.diff !== null && !toggle){
-                    //     playRobot(player1);
-                    //     return;
-                    // }
-                    // if(player2.diff !== null && toggle){
-                    //     playRobot(player2);
-                    //     return;
-                    // }
                     round += 1;
                     toggle = !toggle
                     
@@ -295,29 +463,18 @@ const gameController = (() => {
                         currentPlayer.style.transition = "none"
                         gameBoard.claimPiece(player1, id)
                         if(gameBoard.winCondition(player1.mark)){
-                            toggle = !toggle
-                            statContCurrent();
-                            currentPlayer.style.color = "#00EEC5"
-                            currentPlayer.style.textShadow = "0 0 25px #00EEC5"
-                            currentPlayer.textContent = `${player1.name} CLAIMS VICTORY!`;
-                            currentPlayer.style.transition = "0.3s ease"
-                            afterVictory.textContent = `${player1.name}'S TURN`;
-                            player1.score += 1;
-                            if(player1.score === 1) winText1.textContent = "WIN"
-                            else winText1.textContent = "WINS"
-                            winNumber1.textContent = player1.score;
-                            round = 0;
-                            gameBoard.resetBoard(player1, buttonBoolean);
-                            resetWaiter();
+                            currentPlayer.textContent = `${player1.name}'S TURN`;
+                            onWin(player1)
+                            
                         }
                         else if(gameBoard.fullBoardCheck()){
-                            toggle = !toggle
-                            currentPlayer.textContent = "DRAW";
-                            afterVictory.textContent = `${player1.name}'S TURN`;
-                            gameBoard.resetBoard(player1, buttonBoolean);
-                            resetWaiter();
+                            currentPlayer.textContent = `${player1.name}'S TURN`;
+                            onDraw();
+                            
                         }
-                        if(player2.diff !== null)playRobot(player2);
+                        else if(player2.diff !== null){
+                            playRobot(player2);
+                        }
                     }
                     else if(!toggle){
                         pc.classList.remove("yellow");
@@ -326,21 +483,15 @@ const gameController = (() => {
                         currentPlayer.style.transition = "none"
                         gameBoard.claimPiece(player2, id)
                         if(gameBoard.winCondition(player2.mark)){
-                            currentPlayer.style.color = "#E6D172"
-                            currentPlayer.style.textShadow = "0 0 25px #E6D172"
-                            currentPlayer.textContent = `${player2.name} CLAIMS VICTORY!`;
-                            currentPlayer.style.transition = "0.3s ease"
-                            afterVictory.textContent = `${player1.name}'S TURN`;
-                            player2.score += 1;
-                            if(player2.score === 1) winText2.textContent = "WIN"
-                            else winText2.textContent = "WINS"
-                            winNumber2.textContent = player2.score;
-                            round = 0;
-                            gameBoard.resetBoard(player1, buttonBoolean);
-                            resetWaiter();
+                            currentPlayer.textContent = `${player1.name}'S TURN`;
+                            onWin(player2);
+                            setTimeout(() => {
+                                playRobot(player1);
+                            }, 2500);
                         }
+                        else if(player1.diff !== null) playRobot(player1);
+                        
                     }
-                    if(player1.diff !== null)playRobot(player1);
                     if(round < 9)statContCurrent();
                     else round = 0;
                 });
@@ -349,16 +500,66 @@ const gameController = (() => {
     const statContCurrent = () => {
         const currentTurnX = document.querySelector(".currentTurnX");
         const currentTurnO = document.querySelector(".currentTurnO");
+        if(player1.diff !== null && player2.diff === null){
+            currentTurnX.classList.remove("opacityUpX");
+            currentTurnO.classList.add("opacityUpO");
+        }
+        else if(player2.diff !== null && player1.diff === null){
+            currentTurnX.classList.add("opacityUpX");
+            currentTurnO.classList.remove("opacityUpO");
+        }
+        else{
         currentTurnX.classList.toggle("opacityUpX");
         currentTurnO.classList.toggle("opacityUpO");
+        }
     }
     const playRobot = (player) => {
-        console.log("clanker moves")
+        const currentPlayer = document.querySelector(".currentTurnPlayerNameInsert");
+        const afterVictory = document.querySelector(".afterVictory");
+        round += 1;
+        toggle = !toggle
+        currentPlayer.style.display = "none"
+        afterVictory.style.display = "none"
+        gameBoard.claimPieceRobot(player);
+        if(round < 9)statContCurrent();
+        else round = 0;
+        if(gameBoard.winCondition(player.mark)){
+            onWin(player)
+            if(player.mark === "X" && (player1.diff !== null)){
+                setTimeout(() => {
+                    playRobot(player1)
+                }, 2500);
+            }
+            else if(player.mark === "O" && (player1.diff !== null && player2.diff !== null)){
+                setTimeout(() => {
+                    playRobot(player1)
+                }, 2500);
+            }
+        }
+        else if(gameBoard.fullBoardCheck()){
+            onDraw();
+            if(player.mark === "X"){
+                setTimeout(() => {
+                    playRobot(player1)
+                }, 2500);
+            }
+        }
+        else if(player1.diff !== null && player2.diff !== null){
+            setTimeout(() => {
+                if(toggle){
+                playRobot(player2)
+                }
+                else if(!toggle){
+                    playRobot(player1)
+                }
+            }, 500);
+        }
+        
     }
     const startRobot = () => {
         setTimeout(() => {
-            if(player1.diff !== null) playRobot();
-        }, 1000);
+            if(player1.diff !== null) playRobot(player1);
+        }, 1500);
     }
 
   return {setUp, setListeners, startRobot}

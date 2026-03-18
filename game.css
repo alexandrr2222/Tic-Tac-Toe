@@ -134,7 +134,7 @@ justify-content: center;
     color: var(--highlightGrey);
 }
 .horizontalSeparator{
-    height: 68px;
+    height: 6rem;
 }
 .verticalSeparator{
     display: none;
@@ -151,7 +151,7 @@ justify-content: center;
 }
 .currentTurnPlayerNameInsert{
     margin-top: 1rem;
-    font-size: var(--ButtonSize);
+    font-size: 0.85rem;
     transition: 0.3s ease;
 
 }
@@ -358,6 +358,8 @@ cursor: default;
     box-shadow: 0 0 0 1px rgba(169,179,184,0.08), 0 8px 32px rgba(0,0,0,0.4), 0 2px 8px rgba(0,0,0,0.3);
     cursor: pointer;
     position: relative;
+    border-left: var(--regularGrey) 2px solid;
+    border-right: var(--regularGrey) 2px solid;
 }
 .corner{
     position: absolute;
@@ -411,13 +413,77 @@ cursor: default;
     border-color: var(--highlightGrey);
 }
 .newGame:hover .corner1, .rematch:hover .corner2, .quit:hover .corner3{
-    width: 92px;
+    width: 8rem;
     border-color: var(--highlightGrey);
+    border-left-color: var(--highlightGrey);
+    border-right-color: var(--highlightGrey);
 }
 .newGame:hover, .rematch:hover, .quit:hover{
     color: var(--highlightGrey);
 }
+.currentTurnPlayerNameInsert{
+    position: absolute;
+    bottom: -2.5rem;
+}
+.controlCont{
+    margin-top: 1rem;
+}
+.hideCur{
+    display: none;
+}
+@media (max-height: 500px) and (orientation: landscape) {
+    
+    main {
+        flex-direction: row;
+        width: 95%;
+    }
+    .statCont {
+        flex-direction: column;
+        align-items: center;
+        min-width: unset;
+        width: 20vw;
+        flex-shrink: 0;
+        align-self: stretch;
+    }
+    .controlCont {
+        min-width: unset;
+        width: 20vw;
+        flex-shrink: 0;
+        align-self: stretch;
+        flex-direction: column;
+        padding: 1rem;
+        gap: 1rem;
+        margin-bottom: 0;
+    }
+    .controlCont button {
+        width: 100%;
+        min-width: unset;
+        letter-spacing: 0.1rem;
+        padding: 0.4rem 0.5rem;
+    }
+    .horizontalSeparator {
+        display: none;
+    }
+    .verticalSeparator {
+        display: block;
+        height: 3px;
+        flex-shrink: 0;
+        align-self: stretch;
+        width: auto;
+    }
+    .currentTurnPlayerNameInsert {
+        position: absolute;
+        bottom: -3rem;
+    }
+    .afterVictory {
+        position: absolute;
+        bottom: -5rem;
+    }
+}
 @media (min-width: 375px){
+    .currentTurnPlayerNameInsert{
+    font-size: var(--ButtonSize);
+}
     .playerName1, .playerName2{
 }
 :root{
@@ -448,9 +514,12 @@ cursor: default;
     }
 }
 @media (min-width: 768px){
+    .controlCont{
+    margin-top: 0rem;
+    }
     :root{
             --regularSize: clamp(0.75rem, 1vw, 1rem);
-    --pieceSize: clamp(4rem, 5vw, 8rem);
+    --pieceSize: clamp(5rem, 5vw, 12rem);
     --nameSize: clamp(0.835rem, 1.3vw, 1.1rem);
     --markSize: clamp(1.2rem, 1.5vw, 1.8rem);
     --mainHeaderSize: clamp(2.2rem, 4.7vw, 5.8rem);
@@ -523,6 +592,9 @@ cursor: default;
     }
 }
 @media (min-width: 1024px){
+    :root{
+        --pieceSize: clamp(6rem, 5vw, 8rem);
+    }
         main{
         width: 80%;
     }
@@ -595,8 +667,9 @@ cursor: default;
     border-color: var(--highlightGrey);
 }
     .controlCont button{
-         width: 75%;
+         width: 85%;
     }
+
 }
 @media (min-width: 2560px){
         .statCont{
@@ -611,14 +684,3 @@ cursor: default;
         width: 85%;
     }
 }
-/* prettier h1 */
-/* Responsiveness - 
-720+(better scalable boardPieces and title, same size Conts
-SEPARATORS*/
-/* 1024+(menu centering) */
-
-/* robot logic */
-
-/* straighten win lines on diagonal and column */
-/* animated lines
-impossible robot */
